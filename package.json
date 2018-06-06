@@ -1,0 +1,115 @@
+{
+  "name": "draft-textedit",
+  "version": "0.0.0",
+  "description": "A boilerplate for creating React components.",
+  "main": "lib/DraftTextEdit.js",
+  "browser": "dist/DraftTextEdit.js",
+  "style": "dist/DraftTextEdit.css",
+  "files": [
+    "lib/",
+    "dist/",
+    "src/"
+  ],
+  "scripts": {
+    "styleguide": "cross-env BABEL_ENV=styleguide styleguidist server",
+    "styleguide:build": "cross-env BABEL_ENV=styleguide styleguidist build",
+    "test:coverage": "cross-env BABEL_ENV=test jest --coverage",
+    "test": "cross-env BABEL_ENV=test jest",
+    "start": "cross-env BABEL_ENV=development gulp dev --env development --component DraftTextEdit",
+    "build": "cross-env BABEL_ENV=production gulp --env production --component DraftTextEdit",
+    "flow": "flow",
+    "lint": "eslint src",
+    "lint:css": "stylelint 'src/**/*.css'",
+    "format": "eslint src --fix && prettier --config .prettierrc --write \"src/**/*.{js,css,json}\"",
+    "format:css": "stylelint 'src/**/*.css' --fix",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexzimakov/draft-textedit.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Alexander Zimakov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexzimakov/draft-textedit/issues"
+  },
+  "homepage": "https://github.com/alexzimakov/draft-textedit#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "^22.4.4",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.1.6",
+    "del": "^3.0.0",
+    "draft-js": "^0.10.5",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.3",
+    "gulp-uglify": "^3.0.0",
+    "husky": "^1.0.0-rc.6",
+    "jest": "^22.4.4",
+    "minimist": "^1.2.0",
+    "prettier": "^1.12.1",
+    "pretty-quick": "^1.4.1",
+    "prop-types": "^15.6.1",
+    "pump": "^3.0.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-styleguidist": "^7.0.14",
+    "regenerator-runtime": "^0.11.1",
+    "request": "^2.87.0",
+    "run-sequence": "^2.2.1",
+    "stylelint": "^9.2.1",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-order": "^0.8.1",
+    "webpack": "^4.10.2",
+    "webpack-stream": "^4.0.3"
+  },
+  "peerDependencies": {
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "prop-types": "^15.6.0",
+    "draft-js": "^0.10.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "jest": {
+    "rootDir": "./",
+    "roots": [
+      "<rootDir>/src/"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/setupTests.js"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/lib/",
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/"
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{js|jsx}",
+      "!**/node_modules/**"
+    ]
+  }
+}
