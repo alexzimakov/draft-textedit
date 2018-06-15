@@ -1,1 +1,1 @@
-# React component boilerplate
+# Draft TextEdit
