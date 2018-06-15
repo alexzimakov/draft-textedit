@@ -37,7 +37,11 @@
     "url": "https://github.com/alexzimakov/draft-textedit/issues"
   },
   "homepage": "https://github.com/alexzimakov/draft-textedit#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@fortawesome/fontawesome": "1.1.8",
+    "@fortawesome/fontawesome-free-solid": "5.0.13",
+    "@fortawesome/react-fontawesome": "0.0.20"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
