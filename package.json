@@ -40,7 +40,8 @@
   "dependencies": {
     "@fortawesome/fontawesome": "1.1.8",
     "@fortawesome/fontawesome-free-solid": "5.0.13",
-    "@fortawesome/react-fontawesome": "0.0.20"
+    "@fortawesome/react-fontawesome": "0.0.20",
+    "classnames": "2.2.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
