@@ -5,6 +5,7 @@
 
   /* primary color */
   --azure: #0496ff;
+  --azure-dark: #0086e6;
   --azure-transparency-9: rgba(4, 150, 255, 0.9);
   --azure-transparency-8: rgba(4, 150, 255, 0.8);
   --azure-transparency-7: rgba(4, 150, 255, 0.7);
@@ -24,7 +25,9 @@
 
   /* Color scheme */
   --draft-textedit-primary-color: var(--azure);
-  --draft-textedit-primary-outline-color: var(--azure-transparency-1);
+  --draft-textedit-primary-hover-color: var(--azure-dark);
+  --draft-textedit-primary-disabled-color: var(--azure-transparency-6);
+  --draft-textedit-primary-outline-color: var(--azure-transparency-2);
   --draft-textedit-default-color: var(--charleston-green);
   --draft-textedit-default-hover-color: var(--spanish-gray);
   --draft-textedit-default-disabled-color: var(--lavender-gray);
