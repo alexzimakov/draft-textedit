@@ -1,5 +1,6 @@
 {
   "presets": ["env", "react"],
+  "plugins": ["transform-object-rest-spread"],
   "env": {
     "test": {
       "plugins": ["./config/babel-plugins/babel-plugin-remove-css-imports.js"]
