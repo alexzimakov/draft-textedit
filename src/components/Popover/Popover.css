@@ -1,0 +1,69 @@
+.DraftTextEditPopover {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.DraftTextEditPopover-Layout {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  background: white;
+  box-shadow: 0 0 0 0.0625rem #e1e5ee, 0 0.25rem 0.75rem rgba(36, 43, 56, 0.05);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 1rem;
+}
+
+.DraftTextEditPopover-Layout::before,
+.DraftTextEditPopover-Layout::after {
+  position: absolute;
+  top: -0.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  content: '';
+  transform: rotateZ(45deg);
+  border-top-left-radius: 0.125rem;
+  background: white;
+}
+
+.DraftTextEditPopover-Layout::before {
+  position: absolute;
+  z-index: -1;
+  top: -0.5625rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  background: #e1e5ee;
+}
+
+.DraftTextEditPopover_center .DraftTextEditPopover-Layout::before,
+.DraftTextEditPopover_center .DraftTextEditPopover-Layout::after {
+  left: 50%;
+  margin-left: -0.5rem;
+}
+
+.DraftTextEditPopover_center .DraftTextEditPopover-Layout::before {
+  margin-left: -0.5625rem;
+}
+
+.DraftTextEditPopover_left .DraftTextEditPopover-Layout::before,
+.DraftTextEditPopover_left .DraftTextEditPopover-Layout::after {
+  left: 1rem;
+}
+
+.DraftTextEditPopover_left .DraftTextEditPopover-Layout::before {
+  margin-left: -0.0625rem;
+}
+
+.DraftTextEditPopover_right .DraftTextEditPopover-Layout::before,
+.DraftTextEditPopover_right .DraftTextEditPopover-Layout::after {
+  right: 1rem;
+}
+
+.DraftTextEditPopover_right .DraftTextEditPopover-Layout::before {
+  margin-right: -0.0625rem;
+}
