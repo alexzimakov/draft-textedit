@@ -1,76 +1,105 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faBold } from '@fortawesome/fontawesome-free-solid';
+import faBold from '@fortawesome/fontawesome-free-solid/faBold';
 import StyleButton from './StyleButton';
 
-function renderComponent(
-  { style = 'BOLD', ...otherProps } = {},
-  mountFn = shallow
-) {
+function renderComponent(props = {}, mountFn = shallow) {
   return mountFn(
-    <StyleButton style={style} {...otherProps}>
+    <StyleButton {...props}>
       <FontAwesomeIcon icon={faBold} />
     </StyleButton>
   );
 }
 
 describe('<StyleButton /> component', () => {
-  it('should render without errors', () => {
+  it('should renders without errors', () => {
     const styleButton = renderComponent();
 
-    expect(styleButton.hasClass('DraftTextEdit-StyleButton')).toBeTruthy();
-  });
-
-  it('should render with tooltip', () => {
-    const styleButton = renderComponent({ tooltip: 'Bold' });
-
     expect(
-      styleButton.find('.DraftTextEdit-StyleButton__tooltip')
-    ).toHaveLength(1);
-    expect(styleButton.find('.DraftTextEdit-StyleButton__tooltip').text()).toBe(
-      'Bold'
-    );
-  });
-
-  it('should show tooltip during hover', () => {
-    const styleButton = renderComponent({ tooltip: 'Bold' });
-
-    styleButton.simulate('mouseover');
-    expect(
-      styleButton
-        .find('.DraftTextEdit-StyleButton__tooltip')
-        .hasClass('DraftTextEdit-StyleButton__tooltip_visible')
+      styleButton.find('Button').hasClass('DraftTextEditStyleButton-Button')
     ).toBeTruthy();
   });
 
-  it('should add class if button is active', () => {
+  it('should adds a class with modifier for the `Button` element', () => {
     const styleButton = renderComponent({ active: true });
 
     expect(
-      styleButton.hasClass('DraftTextEdit-StyleButton_active')
+      styleButton
+        .find('Button')
+        .hasClass('DraftTextEditStyleButton-Button_active')
     ).toBeTruthy();
   });
 
-  it('should call onPress callback', () => {
+  it('should calls `onPress` callback', () => {
     const onPressStub = jest.fn();
     const styleButton = renderComponent({ onPress: onPressStub });
 
-    styleButton.simulate('mousedown', { preventDefault: jest.fn() });
-    styleButton.simulate('keydown', {
-      preventDefault: jest.fn(),
-      key: 'Enter',
-    });
-    styleButton.simulate('keydown', { preventDefault: jest.fn(), key: ' ' });
-    expect(onPressStub).toHaveBeenCalledTimes(3);
-    expect(onPressStub.mock.calls).toEqual([['BOLD'], ['BOLD'], ['BOLD']]);
+    styleButton
+      .find('Button')
+      .props()
+      .onPress();
+    expect(onPressStub).toHaveBeenCalled();
   });
 
-  it('should not call onPress callback', () => {
-    const onPressStub = jest.fn();
-    const styleButton = renderComponent({ onPress: onPressStub });
+  it('should not throws an error if `onPress` property is not given', () => {
+    const styleButton = renderComponent();
 
-    styleButton.simulate('keydown', { preventDefault: jest.fn(), key: 'Tab' });
-    expect(onPressStub).not.toHaveBeenCalled();
+    expect(() => {
+      styleButton
+        .find('Button')
+        .props()
+        .onPress();
+    }).not.toThrow();
+  });
+
+  it('should renders with the `Tooltip` element if `title` property is given', () => {
+    const styleButton = renderComponent({ title: 'test' });
+
+    expect(styleButton.find('Tooltip')).toHaveLength(1);
+    expect(styleButton.find('Tooltip').props().children).toBe('test');
+    expect(styleButton.find('Button').props()['aria-describedby']).toBe(
+      styleButton.find('Tooltip').props().id
+    );
+  });
+
+  it('should shows and hides the tooltip', () => {
+    const styleButton = renderComponent({ title: 'test' });
+
+    styleButton
+      .find('Button')
+      .props()
+      .onMouseOver();
+    styleButton.update();
+    expect(
+      styleButton
+        .find('.DraftTextEditStyleButton-Tooltip')
+        .hasClass('DraftTextEditStyleButton-Tooltip_visible')
+    ).toBeTruthy();
+    styleButton
+      .find('Button')
+      .props()
+      .onMouseOut();
+    styleButton.update();
+    expect(
+      styleButton
+        .find('.DraftTextEditStyleButton-Tooltip')
+        .hasClass('DraftTextEditStyleButton-Tooltip_visible')
+    ).toBeFalsy();
+  });
+
+  it('should not shows the tooltip if `disabled` property is true', () => {
+    const styleButton = renderComponent({ title: 'test', disabled: true });
+
+    styleButton
+      .find('Button')
+      .props()
+      .onMouseOver();
+    styleButton.update();
+    expect(
+      styleButton
+        .find('.DraftTextEditStyleButton-Tooltip')
+        .hasClass('DraftTextEditStyleButton-Tooltip_visible')
+    ).toBeFalsy();
   });
 });
