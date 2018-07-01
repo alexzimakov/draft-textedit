@@ -1,80 +1,31 @@
-.DraftTextEdit-StyleButton {
+.DraftTextEditStyleButton {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 0.5rem;
-  cursor: pointer;
-  color: var(--draft-textedit-default-color);
-  border: none;
-  outline: none;
-  font-size: 0.875rem;
-  appearance: none;
-  will-change: background-color;
 }
 
-.DraftTextEdit-StyleButton:hover {
-  color: var(--draft-textedit-default-hover-color);
-}
-
-.DraftTextEdit-StyleButton:focus {
-  border-radius: 0.25rem;
-  background: #e8e8e8;
-}
-
-.DraftTextEdit-StyleButton:disabled {
-  cursor: not-allowed;
-  color: var(--draft-textedit-default-disabled-color);
-}
-
-.DraftTextEdit-StyleButton.DraftTextEdit-StyleButton_active {
-  color: var(--draft-textedit-primary-color);
-}
-
-.DraftTextEdit-StyleButton.DraftTextEdit-StyleButton_active:focus {
-  background: var(--draft-textedit-primary-outline-color);
-}
-
-.DraftTextEdit-StyleButton__tooltip {
-  position: absolute;
-  bottom: -1.75rem;
-  left: 50%;
-  display: none;
-  padding: 0.25rem 0.5rem;
-  transform: translateX(-50%);
-  white-space: nowrap;
+.DraftTextEditStyleButton-Button_active:enabled {
   color: white;
-  border-radius: 0.25rem;
-  background: var(--draft-textedit-default-color);
-  font-size: 0.85em;
+  background: #242b38;
 }
 
-.DraftTextEdit-StyleButton__tooltip::before {
+.DraftTextEditStyleButton-Button_active:enabled:hover {
+  background: #373e4a;
+}
+
+.DraftTextEditStyleButton-Button_active:enabled:active {
+  background: #4b515c;
+}
+
+.DraftTextEditStyleButton-Tooltip {
   position: absolute;
-  top: -0.38rem;
+  top: 2.125rem;
   left: 50%;
-  display: block;
-  width: 0;
-  height: 0;
-  margin-left: -0.4rem;
-  content: '';
-  border-width: 0 0.4rem 0.4rem 0.4rem;
-  border-style: solid;
-  border-color: transparent transparent var(--draft-textedit-default-color)
-    transparent;
+  transition: opacity 150ms ease;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
 }
 
-.DraftTextEdit-StyleButton__tooltip_visible {
-  display: inline-block;
-}
-
-@media (hover: none) {
-  .DraftTextEdit-StyleButton:hover {
-    color: var(--draft-textedit-default-color);
-  }
-
-  .DraftTextEdit-StyleButton__tooltip_visible {
-    display: none;
-  }
+.DraftTextEditStyleButton-Tooltip_visible {
+  pointer-events: all;
+  opacity: 1;
 }
