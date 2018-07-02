@@ -4,12 +4,12 @@
   display: block;
 }
 
-.DraftTextEditPopover-Layout {
+.DraftTextEditPopover-Body {
   display: block;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  padding: 0.25rem;
+  padding: 0.25rem 0;
   border-radius: 0.25rem;
   background: white;
   box-shadow: 0 0 0 0.0625rem #e1e5ee, 0 0.25rem 0.75rem rgba(36, 43, 56, 0.05);
@@ -18,52 +18,53 @@
   font-size: 1rem;
 }
 
-.DraftTextEditPopover-Layout::before,
-.DraftTextEditPopover-Layout::after {
+.DraftTextEditPopover-Content {
+  position: relative;
+  z-index: 1;
+}
+
+.DraftTextEditPopover-Body::before,
+.DraftTextEditPopover-Body::after {
   position: absolute;
   top: -0.5rem;
+  left: 50%;
   display: block;
   width: 1rem;
   height: 1rem;
+  margin-left: -0.5rem;
   content: '';
   transform: rotateZ(45deg);
   border-top-left-radius: 0.125rem;
   background: white;
 }
 
-.DraftTextEditPopover-Layout::before {
+.DraftTextEditPopover-Body::before {
   position: absolute;
   z-index: -1;
   top: -0.5625rem;
   width: 1.125rem;
   height: 1.125rem;
+  margin-left: -0.5625rem;
   background: #e1e5ee;
 }
 
-.DraftTextEditPopover_center .DraftTextEditPopover-Layout::before,
-.DraftTextEditPopover_center .DraftTextEditPopover-Layout::after {
-  left: 50%;
-  margin-left: -0.5rem;
-}
-
-.DraftTextEditPopover_center .DraftTextEditPopover-Layout::before {
-  margin-left: -0.5625rem;
-}
-
-.DraftTextEditPopover_left .DraftTextEditPopover-Layout::before,
-.DraftTextEditPopover_left .DraftTextEditPopover-Layout::after {
+.DraftTextEditPopover_position_left .DraftTextEditPopover-Body::before,
+.DraftTextEditPopover_position_left .DraftTextEditPopover-Body::after {
   left: 1rem;
+  margin-left: 0;
 }
 
-.DraftTextEditPopover_left .DraftTextEditPopover-Layout::before {
+.DraftTextEditPopover_position_left .DraftTextEditPopover-Body::before {
   margin-left: -0.0625rem;
 }
 
-.DraftTextEditPopover_right .DraftTextEditPopover-Layout::before,
-.DraftTextEditPopover_right .DraftTextEditPopover-Layout::after {
+.DraftTextEditPopover_position_right .DraftTextEditPopover-Body::before,
+.DraftTextEditPopover_position_right .DraftTextEditPopover-Body::after {
   right: 1rem;
+  left: auto;
+  margin-left: 0;
 }
 
-.DraftTextEditPopover_right .DraftTextEditPopover-Layout::before {
+.DraftTextEditPopover_position_right .DraftTextEditPopover-Body::before {
   margin-right: -0.0625rem;
 }
