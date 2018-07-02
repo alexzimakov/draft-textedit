@@ -1,0 +1,56 @@
+.DraftTextEditBlockTypeSelect {
+  position: relative;
+  display: inline-block;
+  font-size: 1rem;
+}
+
+.DraftTextEditBlockTypeSelect-Button {
+  justify-content: space-between;
+  width: 11em;
+}
+
+.DraftTextEditBlockTypeSelect-Button_label {
+  overflow: hidden;
+  max-width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.DraftTextEditBlockTypeSelect-Button_arrow {
+  margin-left: 1.1428571429em;
+  font-size: 0.875em;
+}
+
+.DraftTextEditBlockTypeSelect-Popover {
+  position: absolute;
+  z-index: 999;
+  top: 2.875em;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.DraftTextEditBlockTypeSelect-Popover_position_left {
+  left: 0;
+  transform: none;
+}
+
+.DraftTextEditBlockTypeSelect-Popover_position_right {
+  right: 0;
+  left: auto;
+  transform: none;
+}
+
+.DraftTextEditBlockTypeSelect-Popover_visible {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.DraftTextEditBlockTypeSelect-Options {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

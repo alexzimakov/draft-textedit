@@ -1,5 +1,6 @@
 .DraftTextEditStyleButton {
   position: relative;
+  display: inline-block;
 }
 
 .DraftTextEditStyleButton-Button_active:enabled {

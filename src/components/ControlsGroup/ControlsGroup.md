@@ -16,6 +16,9 @@ const faRedo = require('@fortawesome/fontawesome-free-solid/faRedo');
 
 <div style={{ display: 'flex' }}>
   <ControlsGroup>
+    <BlockTypeSelect popoverPosition="left" />
+  </ControlsGroup>
+  <ControlsGroup>
     <StyleButton title="Bold (\u2318B)">
       <FontAwesomeIcon icon={faBold} />
     </StyleButton>
