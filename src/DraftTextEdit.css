@@ -1,34 +1,55 @@
-:root {
-  --draft-textedit-font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
+@import url('https://fonts.googleapis.com/css?family=PT+Mono&subset=cyrillic-ext');
 
-  /* primary color */
-  --azure: #0496ff;
-  --azure-dark: #0086e6;
-  --azure-transparency-9: rgba(4, 150, 255, 0.9);
-  --azure-transparency-8: rgba(4, 150, 255, 0.8);
-  --azure-transparency-7: rgba(4, 150, 255, 0.7);
-  --azure-transparency-6: rgba(4, 150, 255, 0.6);
-  --azure-transparency-5: rgba(4, 150, 255, 0.5);
-  --azure-transparency-4: rgba(4, 150, 255, 0.4);
-  --azure-transparency-3: rgba(4, 150, 255, 0.3);
-  --azure-transparency-2: rgba(4, 150, 255, 0.2);
-  --azure-transparency-1: rgba(4, 150, 255, 0.1);
+.typography .paragraph,
+.typography .header-1,
+.typography .header-2,
+.typography .header-3,
+.typography .header-4,
+.typography .header-5,
+.typography .header-6 {
+  color: inherit;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  line-height: 1.5rem;
+}
 
-  /* https://coolors.co/282828-9b9e9e-c4c6c6-e8e8e8-f0f0f0 */
-  --charleston-green: #282828;
-  --spanish-gray: #9b9e9e;
-  --lavender-gray: #c4c6c6;
-  --platinum: #e8e8e8;
-  --isabelline: #f0f0f0;
+.typography .paragraph {
+  margin: auto auto 1.5rem;
+  font-size: 1rem;
+}
 
-  /* Color scheme */
-  --draft-textedit-primary-color: var(--azure);
-  --draft-textedit-primary-hover-color: var(--azure-dark);
-  --draft-textedit-primary-disabled-color: var(--azure-transparency-6);
-  --draft-textedit-primary-outline-color: var(--azure-transparency-2);
-  --draft-textedit-default-color: var(--charleston-green);
-  --draft-textedit-default-hover-color: var(--spanish-gray);
-  --draft-textedit-default-disabled-color: var(--lavender-gray);
+.typography .header-1 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.9375rem;
+  line-height: 3rem;
+}
+
+.typography .header-2 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.5625rem;
+}
+
+.typography .header-3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: 1.25rem;
+}
+
+.typography .header-4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.typography .header-5 {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+}
+
+.typography .header-6 {
+  margin: 1.5rem 0;
+  font-size: 0.75rem;
 }
