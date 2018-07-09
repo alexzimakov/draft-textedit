@@ -1,98 +1,12 @@
 .DraftTextEditTooltip {
+  position: fixed;
+  z-index: 999;
+  transition: opacity 150ms ease;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.DraftTextEditTooltipWrapper {
   position: relative;
-  z-index: 1;
-  display: inline-flex;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  user-select: none;
-  font-size: 1rem;
-}
-
-.DraftTextEditTooltip-Body {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  height: 2em;
-  padding: 0 1em;
-  color: #242b38;
-  border-radius: 0.25em;
-  background: #f6f7fa;
-}
-
-.DraftTextEditTooltip-Body::before {
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  display: block;
-  width: 0.75em;
-  height: 0.75em;
-  margin-left: -0.375em;
-  transform: rotateZ(45deg);
-  border-top-left-radius: 0.125em;
-  border-bottom-right-radius: 0.125em;
-  background: #f6f7fa;
-  box-shadow: 0.0625em 0.0625em 0.375em 0.0625em rgba(36, 43, 56, 0.1),
-    0 0 0.0625em rgba(36, 43, 56, 0.5);
-}
-
-.DraftTextEditTooltip-Body::after {
-  position: absolute;
-  z-index: -2;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  content: '';
-  border-radius: 0.25em;
-  background: none;
-  box-shadow: 0 0.0625em 0.375em 0.0625em rgba(36, 43, 56, 0.1),
-    0 0 0.0625em rgba(36, 43, 56, 0.5);
-}
-
-.DraftTextEditTooltip-Title {
-  white-space: nowrap;
-  letter-spacing: -0.015em;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 0.875em;
-  line-height: 1;
-}
-
-.DraftTextEditTooltip_darkMode .DraftTextEditTooltip-Body,
-.DraftTextEditTooltip_darkMode .DraftTextEditTooltip-Body::before {
-  color: #f6f7fa;
-  background: #242b38;
-}
-
-.DraftTextEditTooltip_positionX_left .DraftTextEditTooltip-Body::before {
-  left: 1em;
-  margin-left: 0;
-}
-
-.DraftTextEditTooltip_positionX_right .DraftTextEditTooltip-Body::before {
-  right: 1em;
-  left: auto;
-  margin-left: 0;
-}
-
-.DraftTextEditTooltip_positionY_top .DraftTextEditTooltip-Body::before,
-.DraftTextEditTooltip_positionY_bottom .DraftTextEditTooltip-Body::before {
-  content: '';
-}
-
-.DraftTextEditTooltip_positionY_top {
-  padding: 0 0 0.5em;
-}
-
-.DraftTextEditTooltip_positionY_top .DraftTextEditTooltip-Body::before {
-  bottom: -0.375em;
-}
-
-.DraftTextEditTooltip_positionY_bottom {
-  padding: 0.5em 0 0;
-}
-
-.DraftTextEditTooltip_positionY_bottom .DraftTextEditTooltip-Body::before {
-  top: -0.375em;
+  display: inline-block;
 }
