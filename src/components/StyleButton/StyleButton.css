@@ -1,8 +1,3 @@
-.DraftTextEditStyleButton {
-  position: relative;
-  display: inline-block;
-}
-
 .DraftTextEditStyleButton-Button_active:enabled {
   color: white;
   background: #242b38;
@@ -14,19 +9,4 @@
 
 .DraftTextEditStyleButton-Button_active:enabled:active {
   background: #4b515c;
-}
-
-.DraftTextEditStyleButton-Tooltip {
-  position: absolute;
-  top: 2.125rem;
-  left: 50%;
-  transition: opacity 150ms ease;
-  transform: translateX(-50%);
-  pointer-events: none;
-  opacity: 0;
-}
-
-.DraftTextEditStyleButton-Tooltip_visible {
-  pointer-events: all;
-  opacity: 1;
 }
