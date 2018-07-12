@@ -48,9 +48,7 @@ class Option extends Component {
 
 Option.propTypes = {
   className: PropTypes.string,
-  style: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
+  style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   value: PropTypes.oneOf(Object.values(blockTypes)).isRequired,
   label: PropTypes.string,
   selected: PropTypes.bool,

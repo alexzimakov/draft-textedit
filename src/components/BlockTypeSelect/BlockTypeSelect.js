@@ -1,156 +1,119 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import pick from 'lodash.pick';
-import classNames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faChevronDown from '@fortawesome/fontawesome-free-solid/faChevronDown';
 import * as blockTypes from '../../constants/blockTypes';
-import Button from '../Button';
+import StyleButton from '../StyleButton';
 import Popover from '../Popover';
 import Option from './Option';
 import './BlockTypeSelect.css';
 
 class BlockTypeSelect extends Component {
+  static propTypes = {
+    options: PropTypes.arrayOf(PropTypes.oneOf(Object.values(blockTypes))),
+    labels: PropTypes.objectOf(PropTypes.string),
+    // eslint-disable-next-line
+    value: PropTypes.oneOf(Object.values(blockTypes)),
+    defaultValue: PropTypes.oneOf(Object.values(blockTypes)),
+    onChange: PropTypes.func,
+  };
+
+  static defaultProps = {
+    options: [
+      blockTypes.headerOne,
+      blockTypes.headerTwo,
+      blockTypes.headerThree,
+      blockTypes.headerFour,
+      blockTypes.headerFive,
+      blockTypes.headerSix,
+      blockTypes.paragraph,
+    ],
+    labels: {
+      [blockTypes.headerOne]: 'Heading 1',
+      [blockTypes.headerTwo]: 'Heading 2',
+      [blockTypes.headerThree]: 'Heading 3',
+      [blockTypes.headerFour]: 'Heading 4',
+      [blockTypes.headerFive]: 'Heading 5',
+      [blockTypes.headerSix]: 'Heading 6',
+      [blockTypes.blockQuote]: 'Blockquote',
+      [blockTypes.codeBlock]: 'Code',
+      [blockTypes.atomic]: 'Figure',
+      [blockTypes.unorderedList]: 'Unordered list',
+      [blockTypes.orderedList]: 'Ordered list',
+      [blockTypes.paragraph]: 'Paragraph',
+    },
+    defaultValue: blockTypes.paragraph,
+    onChange: () => {},
+  };
+
   constructor(props) {
     super(props);
-    this.getState = this.getState.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleButtonPress = this.handleButtonPress.bind(this);
-    this.handlePressOutside = this.handlePressOutside.bind(this);
-    this.handleOptionPress = this.handleOptionPress.bind(this);
-    this.state = {
-      value: props.defaultValue,
-      popoverIsVisible: false,
-    };
+    this.popoverRef = React.createRef();
+    this.state = { value: props.defaultValue, isActive: false };
   }
 
-  componentDidMount() {
-    document.body.addEventListener('keydown', this.handleKeyDown);
-  }
+  getState = () => ({ ...this.state, ...pick(this.props, ['value']) });
 
-  componentWillUnmount() {
-    document.body.removeEventListener('keydown', this.handleKeyDown);
-  }
+  handlePopoverOpen = () => {
+    this.setState({ isActive: true });
+  };
 
-  getState() {
-    return { ...this.state, ...pick(this.props, ['value']) };
-  }
+  handlePopoverClose = () => {
+    this.setState({ isActive: false });
+  };
 
-  handleKeyDown(event) {
-    if (
-      event.key === 'Escape' ||
-      event.key === 'ArrowDown' ||
-      event.key === 'ArrowUp'
-    ) {
-      this.setState({ popoverIsVisible: false });
-    }
-  }
-
-  handleButtonPress() {
-    const { popoverIsVisible } = this.state;
-    this.setState({ popoverIsVisible: !popoverIsVisible });
-  }
-
-  handlePressOutside(event) {
-    const { popoverIsVisible } = this.state;
-
-    if (popoverIsVisible) {
-      event.stopPropagation();
-      event.preventDefault();
-      this.setState({ popoverIsVisible: false });
-    }
-  }
-
-  handleOptionPress(value) {
+  handleOptionPress = value => {
     const { onChange } = this.props;
 
-    this.setState({ value, popoverIsVisible: false });
+    this.setState({ value });
+    this.popoverRef.current.closePopover();
     onChange(value);
-  }
+  };
+
+  getPopoverContent = () => {
+    const { options, labels } = this.props;
+    const { value } = this.getState();
+
+    return (
+      <ul className="DraftTextEditBlockTypeSelect-Options" role="listbox">
+        {options.map(option => (
+          <Option
+            key={option}
+            value={option}
+            label={labels[option]}
+            selected={option === value}
+            onPress={this.handleOptionPress}
+          />
+        ))}
+      </ul>
+    );
+  };
 
   render() {
-    const { popoverPosition, options, labels } = this.props;
-    const { popoverIsVisible, value } = this.getState();
-    const popoverClasses = classNames(
-      'DraftTextEditBlockTypeSelect-Popover',
-      popoverPosition &&
-        `DraftTextEditBlockTypeSelect-Popover_position_${popoverPosition}`,
-      popoverIsVisible && 'DraftTextEditBlockTypeSelect-Popover_visible'
-    );
+    const { labels } = this.props;
+    const { value, isActive } = this.getState();
 
     return (
       <div className="DraftTextEditBlockTypeSelect">
-        <Button
-          className="DraftTextEditBlockTypeSelect-Button"
-          variant="text"
-          aria-haspopup="listbox"
-          onPress={this.handleButtonPress}>
-          <span className="DraftTextEditBlockTypeSelect-Button_label">
-            {labels[value] || value}
-          </span>
-          <FontAwesomeIcon
-            className="DraftTextEditBlockTypeSelect-Button_arrow"
-            icon={faChevronDown}
-          />
-        </Button>
-        <div className={popoverClasses}>
-          <Popover
-            onPressOutside={this.handlePressOutside}
-            position={popoverPosition}>
-            <ul className="DraftTextEditBlockTypeSelect-Options" role="listbox">
-              {options.map(option => (
-                <Option
-                  key={option}
-                  value={option}
-                  label={labels[option]}
-                  selected={option === value}
-                  onPress={this.handleOptionPress}
-                />
-              ))}
-            </ul>
-          </Popover>
-        </div>
+        <Popover
+          ref={this.popoverRef}
+          content={this.getPopoverContent()}
+          onOpen={this.handlePopoverOpen}
+          onClose={this.handlePopoverClose}>
+          <StyleButton className="DraftTextEditBlockTypeSelect-Button" active={isActive}>
+            <span className="DraftTextEditBlockTypeSelect-Button_label">
+              {labels[value] || value}
+            </span>
+            <FontAwesomeIcon
+              className="DraftTextEditBlockTypeSelect-Button_arrow"
+              icon={faChevronDown}
+            />
+          </StyleButton>
+        </Popover>
       </div>
     );
   }
 }
-
-BlockTypeSelect.propTypes = {
-  popoverPosition: PropTypes.oneOf(['left', 'right']),
-  options: PropTypes.arrayOf(PropTypes.oneOf(Object.values(blockTypes))),
-  labels: PropTypes.objectOf(PropTypes.string),
-  // eslint-disable-next-line
-  value: PropTypes.oneOf(Object.values(blockTypes)),
-  defaultValue: PropTypes.oneOf(Object.values(blockTypes)),
-  onChange: PropTypes.func,
-};
-BlockTypeSelect.defaultProps = {
-  popoverPosition: null,
-  options: [
-    blockTypes.headerOne,
-    blockTypes.headerTwo,
-    blockTypes.headerThree,
-    blockTypes.headerFour,
-    blockTypes.headerFive,
-    blockTypes.headerSix,
-    blockTypes.paragraph,
-  ],
-  labels: {
-    [blockTypes.headerOne]: 'Heading 1',
-    [blockTypes.headerTwo]: 'Heading 2',
-    [blockTypes.headerThree]: 'Heading 3',
-    [blockTypes.headerFour]: 'Heading 4',
-    [blockTypes.headerFive]: 'Heading 5',
-    [blockTypes.headerSix]: 'Heading 6',
-    [blockTypes.blockQuote]: 'Blockquote',
-    [blockTypes.codeBlock]: 'Code',
-    [blockTypes.atomic]: 'Figure',
-    [blockTypes.unorderedList]: 'Unordered list',
-    [blockTypes.orderedList]: 'Ordered list',
-    [blockTypes.paragraph]: 'Paragraph',
-  },
-  defaultValue: blockTypes.paragraph,
-  onChange: () => {},
-};
 
 export default BlockTypeSelect;
