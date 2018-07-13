@@ -61,5 +61,5 @@ typings/
 .idea/
 .vscode/
 dist/
-lib/
+/lib/
 styleguide/
