@@ -47,6 +47,12 @@ class Popover extends Component {
     window.addEventListener('resize', this.calculateCoordinatesAndPlacement);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.positionFixed !== this.props.positionFixed) {
+      this.calculateCoordinatesAndPlacement();
+    }
+  }
+
   componentWillUnmount() {
     document.body.removeChild(this.mountElement);
     window.removeEventListener('resize', this.calculateCoordinatesAndPlacement);

@@ -13,6 +13,7 @@ class BlockTypeSelect extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.oneOf(Object.values(blockTypes))),
     labels: PropTypes.objectOf(PropTypes.string),
+    popoverIsFixed: PropTypes.bool,
     // eslint-disable-next-line
     value: PropTypes.oneOf(Object.values(blockTypes)),
     defaultValue: PropTypes.oneOf(Object.values(blockTypes)),
@@ -43,6 +44,7 @@ class BlockTypeSelect extends Component {
       [blockTypes.orderedList]: 'Ordered list',
       [blockTypes.paragraph]: 'Paragraph',
     },
+    popoverIsFixed: false,
     defaultValue: blockTypes.paragraph,
     onChange: () => {},
   };
@@ -71,7 +73,7 @@ class BlockTypeSelect extends Component {
     onChange(value);
   };
 
-  getPopoverContent = () => {
+  renderPopoverContent = () => {
     const { options, labels } = this.props;
     const { value } = this.getState();
 
@@ -91,14 +93,15 @@ class BlockTypeSelect extends Component {
   };
 
   render() {
-    const { labels } = this.props;
+    const { labels, popoverIsFixed } = this.props;
     const { value, isActive } = this.getState();
 
     return (
       <div className="DraftTextEditBlockTypeSelect">
         <Popover
           ref={this.popoverRef}
-          content={this.getPopoverContent()}
+          content={this.renderPopoverContent()}
+          positionFixed={popoverIsFixed}
           onOpen={this.handlePopoverOpen}
           onClose={this.handlePopoverClose}>
           <StyleButton className="DraftTextEditBlockTypeSelect-Button" active={isActive}>
