@@ -95,9 +95,11 @@ class Tooltip extends Component {
 
     if (caption) {
       const style = {
-        opacity: isVisible ? 1 : 0,
+        position: 'fixed',
+        zIndex: 999,
         top: coordinates.y,
         left: coordinates.x,
+        opacity: isVisible ? 1 : 0,
       };
 
       return ReactDOM.createPortal(
