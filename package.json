@@ -1,6 +1,6 @@
 {
   "name": "draft-textedit",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A boilerplate for creating React components.",
   "main": "lib/DraftTextEdit.js",
   "browser": "dist/DraftTextEdit.js",
