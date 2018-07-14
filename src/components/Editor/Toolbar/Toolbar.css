@@ -19,13 +19,13 @@
 .DraftTextEditToolbar::before {
   left: 0;
   border-top-left-radius: 0.25em;
-  background: linear-gradient(to left, transparent, white);
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
 }
 
 .DraftTextEditToolbar::after {
   right: 0;
   border-top-right-radius: 0.25em;
-  background: linear-gradient(to right, transparent, white);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
 }
 
 .DraftTextEditToolbar_sticky_top {
