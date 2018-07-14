@@ -25,8 +25,9 @@
 .DraftTextEditBlockTypeSelect-Popover {
   position: absolute;
   z-index: 999;
-  top: 2.875em;
+  top: 2.25em;
   left: 50%;
+  padding-top: 0.75rem;
   transform: translateX(-50%);
   pointer-events: none;
   opacity: 0;

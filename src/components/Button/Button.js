@@ -1,21 +1,45 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import omit from 'lodash.omit';
 import classNames from 'classnames';
 import './Button.css';
 
 class Button extends Component {
-  constructor(props) {
-    super(props);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handelKeyDown = this.handelKeyDown.bind(this);
-  }
+  static customProps = ['primary', 'size', 'variant', 'onPress'];
 
-  handleMouseDown(event) {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+    accessKey: PropTypes.string,
+    autoFocus: PropTypes.bool,
+    disabled: PropTypes.bool,
+    type: PropTypes.string,
+    primary: PropTypes.bool,
+    size: PropTypes.oneOf(['small', 'large']),
+    variant: PropTypes.oneOf(['text', 'outlined']),
+    onPress: PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    style: {},
+    accessKey: '',
+    autoFocus: false,
+    disabled: false,
+    type: 'button',
+    primary: false,
+    size: 'small',
+    variant: null,
+    onPress: () => {},
+  };
+
+  handleMouseDown = event => {
     event.preventDefault();
     this.props.onPress(event);
-  }
+  };
 
-  handelKeyDown(event) {
+  handelKeyDown = event => {
     const { key } = event;
 
     if (key === 'Enter' || key === ' ') {
@@ -23,17 +47,10 @@ class Button extends Component {
       const { onPress } = this.props;
       onPress(event);
     }
-  }
+  };
 
   render() {
-    const {
-      children,
-      className,
-      size,
-      variant,
-      primary,
-      ...otherProps
-    } = this.props;
+    const { children, className, size, variant, primary, ...otherProps } = this.props;
     const classes = classNames(
       'DraftTextEditButton',
       `DraftTextEditButton_size_${size}`,
@@ -45,41 +62,13 @@ class Button extends Component {
     return (
       <button
         className={classes}
-        {...otherProps}
         onMouseDown={this.handleMouseDown}
-        onKeyDown={this.handelKeyDown}>
+        onKeyDown={this.handelKeyDown}
+        {...omit(otherProps, Button.customProps)}>
         {children}
       </button>
     );
   }
 }
-
-Button.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  style: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
-  accessKey: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  disabled: PropTypes.bool,
-  type: PropTypes.string,
-  primary: PropTypes.bool,
-  size: PropTypes.oneOf(['small', 'large']),
-  variant: PropTypes.oneOf(['text', 'outlined']),
-  onPress: PropTypes.func,
-};
-Button.defaultProps = {
-  className: '',
-  style: {},
-  accessKey: '',
-  autoFocus: false,
-  disabled: false,
-  type: 'button',
-  primary: false,
-  size: 'small',
-  variant: null,
-  onPress: () => {},
-};
 
 export default Button;

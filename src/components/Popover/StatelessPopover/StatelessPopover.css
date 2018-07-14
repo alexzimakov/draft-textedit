@@ -1,0 +1,88 @@
+.DraftTextEditStatelessPopover {
+  display: inline-flex;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 1rem;
+}
+
+.DraftTextEditStatelessPopover-InnerWrapper,
+.DraftTextEditStatelessPopover-Body {
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 0.25em;
+  background: white;
+}
+
+.DraftTextEditStatelessPopover-InnerWrapper {
+  display: inline-flex;
+  border: 0.0625em solid #e1e5ee;
+  box-shadow: 0 0.25em 0.75em rgba(36, 43, 56, 0.05);
+}
+
+.DraftTextEditStatelessPopover-Body {
+  z-index: 1;
+  max-width: 30em;
+  padding: 0.25em 0;
+}
+
+.DraftTextEditStatelessPopover-Arrow {
+  position: absolute;
+  left: 50%;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-left: -0.4375em;
+  transform: rotate(45deg);
+}
+
+.DraftTextEditStatelessPopover-Arrow::before,
+.DraftTextEditStatelessPopover-Arrow::after {
+  position: absolute;
+  display: inline-block;
+  content: '';
+}
+
+.DraftTextEditStatelessPopover-Arrow::after {
+  top: 0.0625em;
+  left: 0.0625em;
+  width: 0.875em;
+  height: 0.875em;
+  border-top-left-radius: 0.125em;
+  border-bottom-right-radius: 0.125em;
+  background: white;
+}
+
+.DraftTextEditStatelessPopover-Arrow::before {
+  width: 1em;
+  height: 1em;
+  border-top-left-radius: 0.1875em;
+  border-bottom-right-radius: 0.1875em;
+  background: #e1e5ee;
+}
+
+.DraftTextEditStatelessPopover_hasArrow.DraftTextEditStatelessPopover_placementY_top {
+  margin-top: -0.4375em;
+}
+
+.DraftTextEditStatelessPopover_hasArrow.DraftTextEditStatelessPopover_placementY_bottom {
+  margin-top: 0.4375em;
+}
+
+.DraftTextEditStatelessPopover_placementY_top .DraftTextEditStatelessPopover-Arrow {
+  bottom: -0.4375em;
+}
+
+.DraftTextEditStatelessPopover_placementY_bottom .DraftTextEditStatelessPopover-Arrow {
+  top: -0.4375em;
+}
+
+.DraftTextEditStatelessPopover_placementX_left .DraftTextEditStatelessPopover-Arrow {
+  left: 0.75em;
+  margin-left: 0;
+}
+
+.DraftTextEditStatelessPopover_placementX_right .DraftTextEditStatelessPopover-Arrow {
+  right: 0.75em;
+  left: auto;
+  margin-left: 0;
+}

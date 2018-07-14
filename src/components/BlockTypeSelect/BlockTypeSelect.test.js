@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import BlockTypeSelect from './BlockTypeSelect';
 
 function renderComponent(props = {}, mountFn = shallow) {
@@ -7,137 +7,33 @@ function renderComponent(props = {}, mountFn = shallow) {
 }
 
 describe('<BlockTypeSelect /> component', () => {
-  it('should renders without errors', () => {
-    renderComponent();
-  });
-
-  it('should adds class with modifier if position property if given', () => {
-    const blockTypeSelect = renderComponent({ popoverPosition: 'left' });
-
-    expect(
-      blockTypeSelect
-        .find('.DraftTextEditBlockTypeSelect-Popover')
-        .hasClass('DraftTextEditBlockTypeSelect-Popover_position_left')
-    ).toBeTruthy();
-    blockTypeSelect.setProps({ popoverPosition: 'right' });
-    expect(
-      blockTypeSelect
-        .find('.DraftTextEditBlockTypeSelect-Popover')
-        .hasClass('DraftTextEditBlockTypeSelect-Popover_position_right')
-    ).toBeTruthy();
-  });
-
-  it('should adds `keydown` event handler in `componentDidMount` lifecycle method', () => {
-    jest.spyOn(document.body, 'addEventListener');
-
-    const blockTypeSelect = renderComponent();
-    const that = blockTypeSelect.instance();
-
-    expect(document.body.addEventListener).toHaveBeenCalledWith(
-      'keydown',
-      that.handleKeyDown
-    );
-  });
-
-  it('should removes `keydown` event handler in `componentWillUnmount` lifecycle method', () => {
-    jest.spyOn(document.body, 'removeEventListener');
-
-    const blockTypeSelect = renderComponent();
-    const that = blockTypeSelect.instance();
-
-    blockTypeSelect.unmount();
-    expect(document.body.removeEventListener).toHaveBeenCalledWith(
-      'keydown',
-      that.handleKeyDown
-    );
-  });
-
-  it('should shows popover when click on button', () => {
+  it('should renders with necessary components', () => {
     const blockTypeSelect = renderComponent();
 
-    blockTypeSelect
-      .find('Button')
-      .props()
-      .onPress();
-    blockTypeSelect.update();
-    expect(
-      blockTypeSelect
-        .find('.DraftTextEditBlockTypeSelect-Popover')
-        .hasClass('DraftTextEditBlockTypeSelect-Popover_visible')
-    ).toBeTruthy();
+    expect(blockTypeSelect.find('Popover')).toHaveLength(1);
+    expect(blockTypeSelect.find('StyleButton')).toHaveLength(1);
   });
 
-  it('should hides popover when click outside of popover', () => {
+  it('should renders with option value if `labels` property is empty', () => {
+    const blockTypeSelect = renderComponent({ labels: {} }, mount);
+
+    expect(blockTypeSelect.find('StyleButton').text()).toBe('unstyled');
+  });
+
+  it('should highlight `StyleButton` when popover is open', () => {
     const blockTypeSelect = renderComponent();
 
-    blockTypeSelect.setState({ popoverIsVisible: true });
-    blockTypeSelect.update();
     blockTypeSelect
       .find('Popover')
       .props()
-      .onPressOutside({
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
-      });
+      .onOpen();
     blockTypeSelect.update();
-    expect(
-      blockTypeSelect
-        .find('.DraftTextEditBlockTypeSelect-Popover')
-        .hasClass('DraftTextEditBlockTypeSelect-Popover_visible')
-    ).toBeFalsy();
-  });
-
-  it('should hides popover when press Escape, Arrow Up or Arrow Down', () => {
-    const blockTypeSelect = renderComponent();
-
-    blockTypeSelect.setState({ popoverIsVisible: true });
-    blockTypeSelect.update();
-    blockTypeSelect.instance().handleKeyDown({ key: 'Escape' });
-    blockTypeSelect.update();
-    expect(
-      blockTypeSelect
-        .find('.DraftTextEditBlockTypeSelect-Popover')
-        .hasClass('DraftTextEditBlockTypeSelect-Popover_visible')
-    ).toBeFalsy();
-
-    blockTypeSelect.setState({ popoverIsVisible: true });
-    blockTypeSelect.update();
-    blockTypeSelect.instance().handleKeyDown({ key: 'ArrowUp' });
-    blockTypeSelect.update();
-    expect(
-      blockTypeSelect
-        .find('.DraftTextEditBlockTypeSelect-Popover')
-        .hasClass('DraftTextEditBlockTypeSelect-Popover_visible')
-    ).toBeFalsy();
-
-    blockTypeSelect.setState({ popoverIsVisible: true });
-    blockTypeSelect.update();
-    blockTypeSelect.instance().handleKeyDown({ key: 'ArrowDown' });
-    blockTypeSelect.update();
-    expect(
-      blockTypeSelect
-        .find('.DraftTextEditBlockTypeSelect-Popover')
-        .hasClass('DraftTextEditBlockTypeSelect-Popover_visible')
-    ).toBeFalsy();
-  });
-
-  it("should not hides popover when don't press Escape, Arrow Up or Arrow Down", () => {
-    const blockTypeSelect = renderComponent();
-
-    blockTypeSelect.setState({ popoverIsVisible: true });
-    blockTypeSelect.update();
-    blockTypeSelect.instance().handleKeyDown({ key: 'Enter' });
-    blockTypeSelect.update();
-    expect(
-      blockTypeSelect
-        .find('.DraftTextEditBlockTypeSelect-Popover')
-        .hasClass('DraftTextEditBlockTypeSelect-Popover_visible')
-    ).toBeTruthy();
+    expect(blockTypeSelect.find('StyleButton').props().active).toBeTruthy();
   });
 
   it('should calls `onChange` callback with a block type', () => {
     const onChange = jest.fn();
-    const blockTypeSelect = renderComponent({ onChange });
+    const blockTypeSelect = renderComponent({ onChange }, mount);
 
     blockTypeSelect
       .find('Option')
