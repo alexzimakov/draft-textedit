@@ -10,7 +10,7 @@ describe('<BlockTypeSelect /> component', () => {
   it('should renders with necessary components', () => {
     const blockTypeSelect = renderComponent();
 
-    expect(blockTypeSelect.find('Popover')).toHaveLength(1);
+    expect(blockTypeSelect.find('DropdownMenu')).toHaveLength(1);
     expect(blockTypeSelect.find('StyleButton')).toHaveLength(1);
   });
 
@@ -24,7 +24,7 @@ describe('<BlockTypeSelect /> component', () => {
     const blockTypeSelect = renderComponent();
 
     blockTypeSelect
-      .find('Popover')
+      .find('DropdownMenu')
       .props()
       .onOpen();
     blockTypeSelect.update();

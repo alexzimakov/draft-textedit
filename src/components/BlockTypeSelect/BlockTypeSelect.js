@@ -5,7 +5,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faChevronDown from '@fortawesome/fontawesome-free-solid/faChevronDown';
 import * as blockTypes from '../../constants/blockTypes';
 import StyleButton from '../StyleButton';
-import Popover from '../Popover';
+import DropdownMenu from '../DropdownMenu';
 import Option from './Option';
 import './BlockTypeSelect.css';
 
@@ -98,7 +98,7 @@ class BlockTypeSelect extends Component {
 
     return (
       <div className="DraftTextEditBlockTypeSelect">
-        <Popover
+        <DropdownMenu
           ref={this.popoverRef}
           content={this.renderPopoverContent()}
           positionFixed={popoverIsFixed}
@@ -113,7 +113,7 @@ class BlockTypeSelect extends Component {
               icon={faChevronDown}
             />
           </StyleButton>
-        </Popover>
+        </DropdownMenu>
       </div>
     );
   }
