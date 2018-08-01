@@ -65,9 +65,11 @@ describe('<Tooltip /> component', () => {
       .onMouseOver();
     tooltip.update();
     expect(tooltip.find('StatelessTooltip').props().style).toEqual({
-      opacity: 1,
+      position: 'fixed',
+      zIndex: 999,
       top: 156,
       left: 85,
+      opacity: 1,
     });
     expect(tooltip.find('StatelessTooltip').props().placement).toBe('top');
     expect(tooltip.find('StatelessTooltip').props().position).toBeNull();
@@ -91,9 +93,11 @@ describe('<Tooltip /> component', () => {
       .onMouseOver();
     tooltip.update();
     expect(tooltip.find('StatelessTooltip').props().style).toEqual({
-      opacity: 1,
+      position: 'fixed',
+      zIndex: 999,
       top: 156,
       left: 10,
+      opacity: 1,
     });
     expect(tooltip.find('StatelessTooltip').props().placement).toBe('top');
     expect(tooltip.find('StatelessTooltip').props().position).toBe('left');
@@ -117,9 +121,11 @@ describe('<Tooltip /> component', () => {
       .onMouseOver();
     tooltip.update();
     expect(tooltip.find('StatelessTooltip').props().style).toEqual({
-      opacity: 1,
+      position: 'fixed',
+      zIndex: 999,
       top: 156,
       left: 230,
+      opacity: 1,
     });
     expect(tooltip.find('StatelessTooltip').props().placement).toBe('top');
     expect(tooltip.find('StatelessTooltip').props().position).toBe('right');
@@ -143,9 +149,11 @@ describe('<Tooltip /> component', () => {
       .onMouseOver();
     tooltip.update();
     expect(tooltip.find('StatelessTooltip').props().style).toEqual({
-      opacity: 1,
+      position: 'fixed',
+      zIndex: 999,
       top: 34,
       left: 85,
+      opacity: 1,
     });
     expect(tooltip.find('StatelessTooltip').props().placement).toBe('bottom');
     expect(tooltip.find('StatelessTooltip').props().position).toBeNull();
