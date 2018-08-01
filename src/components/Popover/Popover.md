@@ -1,33 +1,41 @@
 ```jsx
-<Popover hasArrow={false}>
-  <h3 style={{ padding: '0 1em', color: '#767b91' }}>Popover</h3>
-</Popover>
-```
+const contentStyle = {
+  display: 'flex-inline',
+  padding: '0 1em',
+  color: '#767b91',
+  fontFamily:
+    "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+};
 
-```jsx
-<div style={{ display: 'flex', flewWrap: 'wrap', justifyContent: 'space-between' }}>
-  <Popover placementY="top">
-    <h3 style={{ padding: '0 1em', color: '#767b91' }}>Popover on top</h3>
-  </Popover>
-  <Popover placementY="top" placementX="left">
-    <h3 style={{ padding: '0 1em', color: '#767b91' }}>Popover on top left</h3>
-  </Popover>
-  <Popover placementY="top" placementX="right">
-    <h3 style={{ padding: '0 1em', color: '#767b91' }}>Popover on top right</h3>
-  </Popover>
-</div>
-```
+class PopoverDemo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.targetRef = React.createRef();
+    this.togglePopover = this.togglePopover.bind(this);
+    this.state = { isOpen: false };
+  }
 
-```jsx
-<div style={{ display: 'flex', flewWrap: 'wrap', justifyContent: 'space-between' }}>
-  <Popover placementY="bottom">
-    <h3 style={{ padding: '0 1em', color: '#767b91' }}>Popover on bottom</h3>
-  </Popover>
-  <Popover placementY="bottom" placementX="left">
-    <h3 style={{ padding: '0 1em', color: '#767b91' }}>Popover on bottom left</h3>
-  </Popover>
-  <Popover placementY="bottom" placementX="right">
-    <h3 style={{ padding: '0 1em', color: '#767b91' }}>Popover on bottom right</h3>
-  </Popover>
-</div>
+  togglePopover() {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
+  render() {
+    return (
+      <div>
+        <button ref={this.targetRef} onClick={this.togglePopover}>
+          Click to toggle Popover
+        </button>
+        <Popover
+          targetRef={this.targetRef}
+          isOpen={this.state.isOpen}
+          onBackdropMouseDown={this.togglePopover}
+          onEscapeKeyDown={this.togglePopover}>
+          <h3 style={contentStyle}>Popover on top</h3>
+        </Popover>
+      </div>
+    );
+  }
+}
+
+<PopoverDemo />;
 ```

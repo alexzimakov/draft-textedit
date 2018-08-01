@@ -15,278 +15,57 @@ function renderComponent(
 
 describe('<DropdownMenu /> component', () => {
   it('should renders with necessary components and children', () => {
-    const popover = renderComponent();
+    const dropdownMenu = renderComponent();
 
-    expect(popover.contains(<button>Open popover</button>)).toBeTruthy();
-    expect(popover.contains(<p>Popover content</p>)).toBeTruthy();
-    expect(popover.find('.DraftTextEditDropdownMenu-Switcher')).toHaveLength(1);
-    expect(popover.find('Popover')).toHaveLength(1);
+    expect(dropdownMenu.contains(<button>Open popover</button>)).toBeTruthy();
+    expect(dropdownMenu.contains(<p>Popover content</p>)).toBeTruthy();
+    expect(dropdownMenu.find('.DraftTextEditDropdownMenu-Switcher')).toHaveLength(1);
+    expect(dropdownMenu.find('Popover')).toHaveLength(1);
   });
 
-  it('should adds the DOM element for mounting on `componentDidMount` call', () => {
-    const popover = renderComponent();
+  it('should not throws an error if `onClose` property is not given', () => {
+    const dropdownMenu = renderComponent();
 
-    expect(global.document.contains(popover.instance().mountElement)).toBeTruthy();
+    expect(() => {
+      dropdownMenu
+        .find('Popover')
+        .props()
+        .onBackdropMouseDown();
+    }).not.toThrow();
   });
 
-  it('should adds resize eventListener on `componentDidMount` call', () => {
-    jest.spyOn(global, 'addEventListener');
-    const popover = renderComponent();
-
-    expect(global.addEventListener).toHaveBeenCalledWith(
-      'resize',
-      popover.instance().calculateCoordinatesAndPlacement
-    );
-  });
-
-  it('should removes the DOM element for mounting on `componentWillUnmount` call', () => {
-    const popover = renderComponent();
-    const { mountElement } = popover.instance();
-
-    popover.unmount();
-    expect(global.document.contains(mountElement)).toBeFalsy();
-  });
-
-  it('should removes resize eventListener on `componentWillUnmount` call', () => {
-    jest.spyOn(global, 'removeEventListener');
-    const popover = renderComponent();
-    const { calculateCoordinatesAndPlacement } = popover.instance();
-
-    popover.unmount();
-    expect(global.removeEventListener).toHaveBeenCalledWith(
-      'resize',
-      calculateCoordinatesAndPlacement
-    );
-  });
-
-  it('should opens popover with default placementY when switch was clicked', () => {
-    const mouseEvent = { preventDefault: jest.fn() };
-    const popover = renderComponent();
-    Object.defineProperties(global.document.documentElement, {
-      clientWidth: { value: 500 },
-      clientHeight: { value: 800 },
-    });
-    jest.spyOn(popover.instance().wrapperRef.current, 'getBoundingClientRect').mockReturnValue({
-      top: 30,
-      right: 200,
-      bottom: 60,
-      left: 100,
-      width: 100,
-      height: 30,
-    });
-    jest.spyOn(popover.instance().popoverRef.current, 'getBoundaries').mockReturnValue({
-      width: 200,
-      height: 150,
-    });
-
-    popover.find('.DraftTextEditDropdownMenu-Switcher').simulate('mousedown', mouseEvent);
-    expect(mouseEvent.preventDefault).toHaveBeenCalled();
-    expect(popover.find('.DraftTextEditDropdownMenu-Popover').props().style).toEqual({
-      pointerEvents: 'all',
-      opacity: 1,
-    });
-    expect(popover.find('Popover').props().placementY).toBe('bottom');
-    expect(popover.find('Popover').props().style).toEqual({
-      position: 'absolute',
-      zIndex: 9999,
-      top: 0,
-      left: 0,
-      transform: 'translate3d(50px, 64px, 0)',
-    });
-  });
-
-  it('should opens popover with top placementY when switch was clicked', () => {
-    const mouseEvent = { preventDefault: jest.fn() };
-    const popover = renderComponent();
-    Object.defineProperties(global.document.documentElement, {
-      clientWidth: { value: 500 },
-      clientHeight: { value: 800 },
-    });
-    jest.spyOn(popover.instance().wrapperRef.current, 'getBoundingClientRect').mockReturnValue({
-      top: 570,
-      right: 200,
-      bottom: 600,
-      left: 100,
-      width: 100,
-      height: 30,
-    });
-    jest.spyOn(popover.instance().popoverRef.current, 'getBoundaries').mockReturnValue({
-      width: 200,
-      height: 400,
-    });
-
-    popover.find('.DraftTextEditDropdownMenu-Switcher').simulate('mousedown', mouseEvent);
-    expect(mouseEvent.preventDefault).toHaveBeenCalled();
-    expect(popover.find('.DraftTextEditDropdownMenu-Popover').props().style).toEqual({
-      pointerEvents: 'all',
-      opacity: 1,
-    });
-    expect(popover.find('Popover').props().placementY).toBe('top');
-    expect(popover.find('Popover').props().style).toEqual({
-      position: 'absolute',
-      zIndex: 9999,
-      top: 0,
-      left: 0,
-      transform: 'translate3d(50px, 166px, 0)',
-    });
-  });
-
-  it('should opens popover with left placementX when switch was clicked', () => {
-    const mouseEvent = { preventDefault: jest.fn() };
-    const popover = renderComponent();
-    Object.defineProperties(global.document.documentElement, {
-      clientWidth: { value: 500 },
-      clientHeight: { value: 800 },
-    });
-    jest.spyOn(popover.instance().wrapperRef.current, 'getBoundingClientRect').mockReturnValue({
-      top: 570,
-      right: 120,
-      bottom: 600,
-      left: 20,
-      width: 100,
-      height: 30,
-    });
-    jest.spyOn(popover.instance().popoverRef.current, 'getBoundaries').mockReturnValue({
-      width: 200,
-      height: 400,
-    });
-
-    popover.find('.DraftTextEditDropdownMenu-Switcher').simulate('mousedown', mouseEvent);
-    expect(mouseEvent.preventDefault).toHaveBeenCalled();
-    expect(popover.find('.DraftTextEditDropdownMenu-Popover').props().style).toEqual({
-      pointerEvents: 'all',
-      opacity: 1,
-    });
-    expect(popover.find('Popover').props().placementX).toBe('left');
-    expect(popover.find('Popover').props().style).toEqual({
-      position: 'absolute',
-      zIndex: 9999,
-      top: 0,
-      left: 0,
-      transform: 'translate3d(20px, 166px, 0)',
-    });
-  });
-
-  it('should opens popover with right placementX when switch was clicked', () => {
-    const mouseEvent = { preventDefault: jest.fn() };
-    const popover = renderComponent();
-    Object.defineProperties(global.document.documentElement, {
-      clientWidth: { value: 500 },
-      clientHeight: { value: 800 },
-    });
-    jest.spyOn(popover.instance().wrapperRef.current, 'getBoundingClientRect').mockReturnValue({
-      top: 570,
-      right: 490,
-      bottom: 600,
-      left: 390,
-      width: 100,
-      height: 30,
-    });
-    jest.spyOn(popover.instance().popoverRef.current, 'getBoundaries').mockReturnValue({
-      width: 200,
-      height: 400,
-    });
-
-    popover.find('.DraftTextEditDropdownMenu-Switcher').simulate('mousedown', mouseEvent);
-    expect(mouseEvent.preventDefault).toHaveBeenCalled();
-    expect(popover.find('.DraftTextEditDropdownMenu-Popover').props().style).toEqual({
-      pointerEvents: 'all',
-      opacity: 1,
-    });
-    expect(popover.find('Popover').props().placementX).toBe('right');
-    expect(popover.find('Popover').props().style).toEqual({
-      position: 'absolute',
-      zIndex: 9999,
-      top: 0,
-      left: 0,
-      transform: 'translate3d(290px, 166px, 0)',
-    });
-  });
-
-  it('should opens popover with fixed position when switch was clicked', () => {
-    const mouseEvent = { preventDefault: jest.fn() };
-    const popover = renderComponent({ positionFixed: true });
-    Object.defineProperties(global.document.documentElement, {
-      clientWidth: { value: 500 },
-      clientHeight: { value: 800 },
-    });
-    jest.spyOn(popover.instance().wrapperRef.current, 'getBoundingClientRect').mockReturnValue({
-      top: 570,
-      right: 490,
-      bottom: 600,
-      left: 390,
-      width: 100,
-      height: 30,
-    });
-    jest.spyOn(popover.instance().popoverRef.current, 'getBoundaries').mockReturnValue({
-      width: 200,
-      height: 400,
-    });
-
-    popover.find('.DraftTextEditDropdownMenu-Switcher').simulate('mousedown', mouseEvent);
-    expect(mouseEvent.preventDefault).toHaveBeenCalled();
-    expect(popover.find('.DraftTextEditDropdownMenu-Popover').props().style).toEqual({
-      pointerEvents: 'all',
-      opacity: 1,
-    });
-    expect(popover.find('Popover').props().style).toEqual({
-      position: 'fixed',
-      zIndex: 9999,
-      top: 0,
-      left: 0,
-      transform: 'translate3d(290px, 166px, 0)',
-    });
-  });
-
-  it('should closes popover when backdrop was clicked', () => {
-    const mouseEvent = { preventDefault: jest.fn() };
-    const popover = renderComponent();
-
-    popover.find('.DraftTextEditDropdownMenu-Switcher').simulate('mousedown', mouseEvent);
-    popover.find('.DraftTextEditDropdownMenu-Backdrop').simulate('mousedown', mouseEvent);
-    expect(popover.find('.DraftTextEditDropdownMenu-Popover').props().style).toEqual({
-      pointerEvents: 'none',
-      opacity: 0,
-    });
-  });
-
-  it('should closes popover when Escape was pressed', () => {
-    const mouseEvent = { preventDefault: jest.fn() };
-    const keyDownEvent = { preventDefault: jest.fn(), key: 'Escape' };
-    const popover = renderComponent();
-
-    popover.find('.DraftTextEditDropdownMenu-Switcher').simulate('mousedown', mouseEvent);
-    popover.instance().handleKeyDown(keyDownEvent);
-    popover.update();
-    expect(popover.find('.DraftTextEditDropdownMenu-Popover').props().style).toEqual({
-      pointerEvents: 'none',
-      opacity: 0,
-    });
-  });
-
-  it('should not close popover when any other key was pressed', () => {
-    const mouseEvent = { preventDefault: jest.fn() };
-    const keyDownEvent = { preventDefault: jest.fn(), key: 'Enter' };
-    const popover = renderComponent();
-
-    popover.find('.DraftTextEditDropdownMenu-Switcher').simulate('mousedown', mouseEvent);
-    popover.instance().handleKeyDown(keyDownEvent);
-    popover.update();
-    expect(popover.find('.DraftTextEditDropdownMenu-Popover').props().style).toEqual({
-      pointerEvents: 'all',
-      opacity: 1,
-    });
-  });
-
-  it('should calls `onOpen` and `onClose` callbacks', () => {
-    const onOpen = jest.fn();
+  it('should calls `onClose` callback', () => {
     const onClose = jest.fn();
-    const mouseEvent = { preventDefault: jest.fn() };
-    const popover = renderComponent({ onOpen, onClose });
+    const dropdownMenu = renderComponent({ onClose });
 
-    popover.find('.DraftTextEditDropdownMenu-Switcher').simulate('mousedown', mouseEvent);
-    popover.find('.DraftTextEditDropdownMenu-Backdrop').simulate('mousedown', mouseEvent);
-    expect(onOpen).toHaveBeenCalled();
+    dropdownMenu
+      .find('Popover')
+      .props()
+      .onBackdropMouseDown();
+
     expect(onClose).toHaveBeenCalled();
+  });
+
+  it('should not throws an error if `onClose` property is not given', () => {
+    const dropdownMenu = renderComponent();
+
+    expect(() => {
+      dropdownMenu
+        .find('.DraftTextEditDropdownMenu-Switcher')
+        .props()
+        .onMouseDown({ preventDefault: jest.fn() });
+    }).not.toThrow();
+  });
+
+  it('should calls `onOpen` callback', () => {
+    const onOpen = jest.fn();
+    const dropdownMenu = renderComponent({ onOpen });
+
+    dropdownMenu
+      .find('.DraftTextEditDropdownMenu-Switcher')
+      .props()
+      .onMouseDown({ preventDefault: jest.fn() });
+
+    expect(onOpen).toHaveBeenCalled();
   });
 });
