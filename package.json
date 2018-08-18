@@ -14,6 +14,7 @@
     "styleguide": "cross-env BABEL_ENV=styleguide styleguidist server",
     "styleguide:build": "cross-env BABEL_ENV=styleguide styleguidist build",
     "test:coverage": "cross-env BABEL_ENV=test jest --coverage",
+    "test:watch": "cross-env BABEL_ENV=test jest --watch",
     "test": "cross-env BABEL_ENV=test jest",
     "start": "cross-env BABEL_ENV=development gulp dev --env development --component DraftTextEdit",
     "build": "cross-env BABEL_ENV=production gulp --env production --component DraftTextEdit",
@@ -54,6 +55,7 @@
     "babel-eslint": "^7.2.3",
     "babel-jest": "^22.4.4",
     "babel-loader": "^7.1.4",
+    "babel-plugin-styled-components": "^1.5.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
@@ -111,6 +113,7 @@
     }
   },
   "jest": {
+    "testURL": "http://localhost/",
     "rootDir": "./",
     "roots": [
       "<rootDir>/src/"
@@ -125,7 +128,8 @@
     ],
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.{js|jsx}",
-      "!**/node_modules/**"
+      "!**/node_modules/**",
+      "!**/styled.js"
     ]
   }
 }

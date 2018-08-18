@@ -1,74 +1,47 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import omit from 'lodash.omit';
-import classNames from 'classnames';
-import './Button.css';
+// @flow
 
-class Button extends Component {
-  static customProps = ['primary', 'size', 'variant', 'onPress'];
+import * as React from 'react';
+import * as types from '../../constants/types';
+import getStyledButton, { Icon } from './styled';
+import type { ButtonVariant, ButtonSize } from './styled';
 
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
-    accessKey: PropTypes.string,
-    autoFocus: PropTypes.bool,
-    disabled: PropTypes.bool,
-    type: PropTypes.string,
-    primary: PropTypes.bool,
-    size: PropTypes.oneOf(['small', 'large']),
-    variant: PropTypes.oneOf(['text', 'outlined']),
-    onPress: PropTypes.func,
-  };
+type Props = {
+  forwardedRef?: () => void | { current: ?Element },
+  children: React.Node,
+  icon?: types.FaIcon,
+  variant: ButtonVariant,
+  size: ButtonSize,
+  styled: {
+    containerColor?: string,
+    iconColor?: string,
+    labelColor?: string,
+    horizontalPadding?: number,
+    cornerRadius?: number,
+  },
+};
 
-  static defaultProps = {
-    className: '',
-    style: {},
-    accessKey: '',
-    autoFocus: false,
-    disabled: false,
-    type: 'button',
-    primary: false,
-    size: 'small',
-    variant: null,
-    onPress: () => {},
-  };
+function Button({
+  forwardedRef,
+  children,
+  icon,
+  variant = 'default',
+  size = 'medium',
+  styled = {},
+  ...otherProps
+}: Props = {}) {
+  const StyledButton = getStyledButton(variant);
 
-  handleMouseDown = event => {
-    event.preventDefault();
-    this.props.onPress(event);
-  };
-
-  handelKeyDown = event => {
-    const { key } = event;
-
-    if (key === 'Enter' || key === ' ') {
-      event.preventDefault();
-      const { onPress } = this.props;
-      onPress(event);
-    }
-  };
-
-  render() {
-    const { children, className, size, variant, primary, ...otherProps } = this.props;
-    const classes = classNames(
-      'DraftTextEditButton',
-      `DraftTextEditButton_size_${size}`,
-      variant && `DraftTextEditButton_variant_${variant}`,
-      primary && 'DraftTextEditButton_primary',
-      className
-    );
-
-    return (
-      <button
-        className={classes}
-        onMouseDown={this.handleMouseDown}
-        onKeyDown={this.handelKeyDown}
-        {...omit(otherProps, Button.customProps)}>
-        {children}
-      </button>
-    );
-  }
+  return (
+    <StyledButton
+      innerRef={forwardedRef}
+      {...otherProps}
+      styled={styled}
+      size={size}
+      hasLabel={Boolean(children)}>
+      {icon && <Icon icon={icon} />}
+      {children}
+    </StyledButton>
+  );
 }
 
 export default Button;

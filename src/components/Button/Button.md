@@ -1,97 +1,100 @@
-```jsx
-<div>
-  <Button style={{ marginRight: 8 }}>Button</Button>
-  <Button primary>Button primary</Button>
-</div>
+### Default button
+
+```js
+const styled = require('styled-components').default;
+const FontAwesomeIcon = require('@fortawesome/react-fontawesome').default;
+const { faGift, faArrowRight, faHeart } = require('@fortawesome/free-solid-svg-icons');
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  > * {
+    margin: 4px;
+  }
+`;
+const Icon = styled(FontAwesomeIcon)`
+  margin: 0 0 0 0.5em;
+`;
+
+<Wrapper>
+  <Button>Default</Button>
+  <Button icon={faGift}>Default</Button>
+  <Button>
+    Default <Icon icon={faArrowRight} />
+  </Button>
+  <Button icon={faHeart} />
+  <Button disabled>Disabled</Button>
+</Wrapper>;
 ```
 
-### Sizes
+### Text Button
 
-#### Large
+```js
+const styled = require('styled-components').default;
+const FontAwesomeIcon = require('@fortawesome/react-fontawesome').default;
+const { faGift, faArrowRight, faHeart } = require('@fortawesome/free-solid-svg-icons');
 
-```jsx
-<div>
-  <Button style={{ marginRight: 8 }} size="large">
-    Button
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  > * {
+    margin: 4px;
+  }
+`;
+const Icon = styled(FontAwesomeIcon)`
+  margin: 0 0 0 0.5em;
+`;
+
+<Wrapper>
+  <Button variant="text">Text</Button>
+  <Button icon={faGift} variant="text">
+    Text
   </Button>
-  <Button primary size="large">
-    Button primary
+  <Button variant="text">
+    Text <Icon icon={faArrowRight} />
   </Button>
-</div>
+  <Button icon={faHeart} variant="text" />
+  <Button variant="text" disabled>
+    Text
+  </Button>
+</Wrapper>;
 ```
 
-#### Small
+### Outlined button
 
-```jsx
-<div>
-  <Button style={{ marginRight: 8 }}>Button</Button>
-  <Button primary>Button primary</Button>
-</div>
-```
+```js
+const styled = require('styled-components').default;
+const FontAwesomeIcon = require('@fortawesome/react-fontawesome').default;
+const { faGift, faArrowRight, faHeart } = require('@fortawesome/free-solid-svg-icons');
 
-### Variants
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 
-#### Outlined
+  > * {
+    margin: 4px;
+  }
+`;
+const Icon = styled(FontAwesomeIcon)`
+  margin: 0 0 0 0.5em;
+`;
 
-```jsx
-<div>
-  <Button style={{ marginRight: 8 }} variant="outlined">
-    Button
+<Wrapper>
+  <Button variant="outlined">Outlined</Button>
+  <Button icon={faGift} variant="outlined">
+    Outlined
   </Button>
-  <Button primary variant="outlined">
-    Button primary
+  <Button variant="outlined">
+    Outlined <Icon icon={faArrowRight} />
   </Button>
-</div>
-```
-
-#### Text
-
-```jsx
-<div>
-  <Button style={{ marginRight: 8 }} variant="text">
-    Button
+  <Button icon={faHeart} variant="outlined" />
+  <Button variant="outlined" disabled>
+    Outlined
   </Button>
-  <Button primary variant="text">
-    Button primary
-  </Button>
-</div>
-```
-
-### Disabled state
-
-```jsx
-<div>
-  <Button style={{ marginRight: 8 }} disabled onPress={() => alert('test')}>
-    Button
-  </Button>
-  <Button primary disabled>
-    Button primary
-  </Button>
-</div>
-```
-
-#### Outlined
-
-```jsx
-<div>
-  <Button style={{ marginRight: 8 }} disabled variant="outlined">
-    Button
-  </Button>
-  <Button primary disabled variant="outlined">
-    Button primary
-  </Button>
-</div>
-```
-
-#### Text
-
-```jsx
-<div>
-  <Button style={{ marginRight: 8 }} disabled variant="text">
-    Button
-  </Button>
-  <Button primary disabled variant="text">
-    Button primary
-  </Button>
-</div>
+</Wrapper>;
 ```
