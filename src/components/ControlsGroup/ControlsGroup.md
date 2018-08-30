@@ -19,51 +19,51 @@ const faRedo = require('@fortawesome/fontawesome-free-solid/faRedo');
     <BlockTypeSelect popoverPosition="left" />
   </ControlsGroup>
   <ControlsGroup>
-    <StyleButton title="Bold (\u2318B)">
+    <ToolbarButton title="Bold (\u2318B)">
       <FontAwesomeIcon icon={faBold} />
-    </StyleButton>
-    <StyleButton title="Italic (\u2318I)">
+    </ToolbarButton>
+    <ToolbarButton title="Italic (\u2318I)">
       <FontAwesomeIcon icon={faItalic} />
-    </StyleButton>
-    <StyleButton title="Underline (\u2318U)">
+    </ToolbarButton>
+    <ToolbarButton title="Underline (\u2318U)">
       <FontAwesomeIcon icon={faUnderline} />
-    </StyleButton>
-    <StyleButton title="Strikethrough">
+    </ToolbarButton>
+    <ToolbarButton title="Strikethrough">
       <FontAwesomeIcon icon={faStrikethrough} />
-    </StyleButton>
-    <StyleButton title="Code">
+    </ToolbarButton>
+    <ToolbarButton title="Code">
       <FontAwesomeIcon icon={faCode} />
-    </StyleButton>
+    </ToolbarButton>
   </ControlsGroup>
   <ControlsGroup>
-    <StyleButton title="Unordered list">
+    <ToolbarButton title="Unordered list">
       <FontAwesomeIcon icon={faListUl} />
-    </StyleButton>
-    <StyleButton title="Ordered list">
+    </ToolbarButton>
+    <ToolbarButton title="Ordered list">
       <FontAwesomeIcon icon={faListOl} />
-    </StyleButton>
+    </ToolbarButton>
   </ControlsGroup>
   <ControlsGroup>
-    <StyleButton title="Link">
+    <ToolbarButton title="Link">
       <FontAwesomeIcon icon={faLink} />
-    </StyleButton>
-    <StyleButton title="Table">
+    </ToolbarButton>
+    <ToolbarButton title="Table">
       <FontAwesomeIcon icon={faTable} />
-    </StyleButton>
-    <StyleButton title="Quote">
+    </ToolbarButton>
+    <ToolbarButton title="Quote">
       <FontAwesomeIcon icon={faQuoteLeft} />
-    </StyleButton>
-    <StyleButton title="Add image">
+    </ToolbarButton>
+    <ToolbarButton title="Add image">
       <FontAwesomeIcon icon={faImage} />
-    </StyleButton>
+    </ToolbarButton>
   </ControlsGroup>
   <ControlsGroup>
-    <StyleButton title="Undo">
+    <ToolbarButton title="Undo">
       <FontAwesomeIcon icon={faUndo} />
-    </StyleButton>
-    <StyleButton title="Redo">
+    </ToolbarButton>
+    <ToolbarButton title="Redo">
       <FontAwesomeIcon icon={faRedo} />
-    </StyleButton>
+    </ToolbarButton>
   </ControlsGroup>
 </div>;
 ```

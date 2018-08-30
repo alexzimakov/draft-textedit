@@ -11,16 +11,16 @@ describe('<BlockTypeSelect /> component', () => {
     const blockTypeSelect = renderComponent();
 
     expect(blockTypeSelect.find('DropdownMenu')).toHaveLength(1);
-    expect(blockTypeSelect.find('StyleButton')).toHaveLength(1);
+    expect(blockTypeSelect.find('ToolbarButton')).toHaveLength(1);
   });
 
   it('should renders with option value if `labels` property is empty', () => {
     const blockTypeSelect = renderComponent({ labels: {} }, mount);
 
-    expect(blockTypeSelect.find('StyleButton').text()).toBe('unstyled');
+    expect(blockTypeSelect.find('ToolbarButton').text()).toBe('unstyled');
   });
 
-  it('should highlight `StyleButton` when popover is open', () => {
+  it('should highlight `ToolbarButton` when popover is open', () => {
     const blockTypeSelect = renderComponent();
 
     blockTypeSelect
@@ -28,7 +28,7 @@ describe('<BlockTypeSelect /> component', () => {
       .props()
       .onOpen();
     blockTypeSelect.update();
-    expect(blockTypeSelect.find('StyleButton').props().active).toBeTruthy();
+    expect(blockTypeSelect.find('ToolbarButton').props().active).toBeTruthy();
   });
 
   it('should calls `onChange` callback with a block type', () => {

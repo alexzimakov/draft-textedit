@@ -53,7 +53,7 @@ describe('<Toolbar /> component', () => {
 
     expect(toolbar.find('ControlsGroup')).toHaveLength(3);
     expect(toolbar.find('BlockTypeSelect')).toHaveLength(1);
-    expect(toolbar.find('StyleButton')).toHaveLength(7);
+    expect(toolbar.find('ToolbarButton')).toHaveLength(7);
   });
 
   it('should adds resize and scroll event listeners on `componentDidMount` call', () => {
@@ -160,7 +160,7 @@ describe('<Toolbar /> component', () => {
     const toolbar = renderComponent();
 
     toolbar
-      .find('StyleButton')
+      .find('ToolbarButton')
       .at(0)
       .props()
       .onPress();
@@ -171,7 +171,7 @@ describe('<Toolbar /> component', () => {
     const toolbar = renderComponent();
 
     toolbar
-      .find('StyleButton')
+      .find('ToolbarButton')
       .at(5)
       .props()
       .onPress();
@@ -182,7 +182,7 @@ describe('<Toolbar /> component', () => {
     const toolbar = renderComponent();
 
     toolbar
-      .find('StyleButton')
+      .find('ToolbarButton')
       .at(6)
       .props()
       .onPress();

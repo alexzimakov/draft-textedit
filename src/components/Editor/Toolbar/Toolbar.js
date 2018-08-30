@@ -8,7 +8,7 @@ import faRedo from '@fortawesome/fontawesome-free-solid/faRedo';
 import { detectOS } from '../../../lib/utils';
 import ControlsGroup from '../../ControlsGroup';
 import BlockTypeSelect from '../../BlockTypeSelect';
-import StyleButton from '../../StyleButton';
+import ToolbarButton from '../../ToolbarButton';
 import './Toolbar.css';
 
 const InlineStyleControlPropType = PropTypes.shape({
@@ -93,14 +93,25 @@ class Toolbar extends Component {
     return (
       <ControlsGroup>
         {inlineStyleControls.map(({ style, label, icon }) => (
-          <StyleButton
+          <ToolbarButton
             key={style}
             title={label}
             active={currentStyle.has(style)}
             onPress={() => toggleInlineStyle(style)}>
             {icon ? <FontAwesomeIcon icon={icon} /> : label}
-          </StyleButton>
+          </ToolbarButton>
         ))}
+      </ControlsGroup>
+    );
+  };
+
+  renderEntityControls = () => {
+    const { setLink } = this.props;
+    return (
+      <ControlsGroup>
+        <ToolbarButton onPress={setLink}>
+          <FontAwesomeIcon icon={faLink} />
+        </ToolbarButton>
       </ControlsGroup>
     );
   };
@@ -110,18 +121,38 @@ class Toolbar extends Component {
 
     return (
       <ControlsGroup>
-        <StyleButton
+        <ToolbarButton
           title={`Undo (${OS === 'mac' ? '\u2318Z' : 'Ctrl+Z'})`}
           onPress={undo}
           disabled={editorState.getUndoStack().size === 0}>
           <FontAwesomeIcon icon={faUndo} />
-        </StyleButton>
-        <StyleButton
+        </ToolbarButton>
+        <ToolbarButton
           title={`Redo (${OS === 'mac' ? '\u2318\u21e7Z' : 'Ctrl+Shift+Z'})`}
           onPress={redo}
           disabled={editorState.getRedoStack().size === 0}>
           <FontAwesomeIcon icon={faRedo} />
-        </StyleButton>
+        </ToolbarButton>
+      </ControlsGroup>
+    );
+  };
+
+  renderPluginContols = () => {
+    const { plugins, pluginsState, setPluginsState } = this.props;
+
+    return (
+      <ControlsGroup>
+        {plugins.map(({ name, toolbarComponent }) =>
+          React.createElement(toolbarComponent, {
+            key: name,
+            stateToolkit: {
+              getEditorState: this.getEditorState,
+              setEditorState: this.setEditorState,
+              getPluginState: () => pluginsState.get(name),
+              setPluginState: newState => setPluginsState(pluginsState.set(name, newState)),
+            },
+          })
+        )}
       </ControlsGroup>
     );
   };

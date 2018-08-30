@@ -4,7 +4,7 @@ import pick from 'lodash.pick';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faChevronDown from '@fortawesome/fontawesome-free-solid/faChevronDown';
 import * as blockTypes from '../../constants/blockTypes';
-import StyleButton from '../StyleButton';
+import ToolbarButton from '../ToolbarButton';
 import DropdownMenu from '../DropdownMenu';
 import Option from './Option';
 import './BlockTypeSelect.css';
@@ -104,7 +104,7 @@ class BlockTypeSelect extends Component {
           positionFixed={popoverIsFixed}
           onOpen={this.handlePopoverOpen}
           onClose={this.handlePopoverClose}>
-          <StyleButton className="DraftTextEditBlockTypeSelect-Button" active={isActive}>
+          <ToolbarButton className="DraftTextEditBlockTypeSelect-Button" active={isActive}>
             <span className="DraftTextEditBlockTypeSelect-Button_label">
               {labels[value] || value}
             </span>
@@ -112,7 +112,7 @@ class BlockTypeSelect extends Component {
               className="DraftTextEditBlockTypeSelect-Button_arrow"
               icon={faChevronDown}
             />
-          </StyleButton>
+          </ToolbarButton>
         </DropdownMenu>
       </div>
     );
