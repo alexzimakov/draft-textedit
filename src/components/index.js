@@ -1,4 +1,3 @@
-export { default as Tooltip } from './Tooltip';
 export { default as Popover } from './Popover';
 export { default as DropdownMenu } from './DropdownMenu';
 export { default as TextField } from './TextField';
