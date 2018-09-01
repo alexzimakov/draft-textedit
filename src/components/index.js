@@ -1,7 +1,8 @@
 export { default as Tooltip } from './Tooltip';
 export { default as Popover } from './Popover';
 export { default as DropdownMenu } from './DropdownMenu';
-export { default as Input } from './Input';
+export { default as TextField } from './TextField';
+export { default as Select } from './Select';
 export { default as Button } from './Button';
 export { default as ToolbarButton } from './ToolbarButton';
 export { default as BlockTypeSelect } from './BlockTypeSelect';
