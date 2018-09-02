@@ -50,3 +50,7 @@ export const textFieldPlaceholderColor = color(secondary)
 export const textFieldTextColor = darkGray;
 export const textFieldLeadingIconColor = secondary;
 export const textFieldTrailingIconColor = secondary;
+
+/* Dropdown */
+export const dropdownBackgroundColor = '#fff';
+export const dropdownShadowColor = darkGray;
