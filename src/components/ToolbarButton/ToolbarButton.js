@@ -2,16 +2,21 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import shortId from 'shortid';
+import uniqueId from 'lodash/uniqueId';
+import isFunction from 'lodash/isFunction';
+import * as types from '../../constants/types';
 import { toolbarButtonContainerColor } from '../../constants/colors';
 import StyledButton, { Title } from './styled';
 
 type Props = {
+  forwardedRef?: types.Ref<HTMLButtonElement>,
   children: React.Node,
   title?: string,
   isActive: boolean,
   isDisabled: boolean,
-  onPress: (SyntheticMouseEvent<HTMLButtonElement>) => void,
+  onFocus?: (event: SyntheticFocusEvent<HTMLButtonElement>) => void,
+  onBlur?: (event: SyntheticFocusEvent<HTMLButtonElement>) => void,
+  onPress?: (event: SyntheticMouseEvent<HTMLButtonElement>) => void,
 };
 type State = {
   shouldShowTitle: boolean,
@@ -26,21 +31,21 @@ type State = {
 class ToolbarButton extends React.Component<Props, State> {
   titleRoot: HTMLDivElement;
   titleId: string;
-  titleRef: { current: ?HTMLDivElement };
-  buttonRef: { current: ?HTMLButtonElement };
+  titleRef: types.Ref<HTMLDivElement>;
+  buttonRef: types.Ref<HTMLButtonElement>;
 
-  static defaultProps = {
-    isSelected: false,
+  static defaultProps: Props = {
+    children: null,
+    isActive: false,
     isDisabled: false,
-    onPress: () => {},
   };
 
   constructor(props: Props) {
     super(props);
     this.titleRoot = document.createElement('div');
-    this.titleId = `title-${shortId.generate()}`;
+    this.titleId = uniqueId('title-');
     this.titleRef = React.createRef();
-    this.buttonRef = React.createRef();
+    this.buttonRef = props.forwardedRef || React.createRef();
     this.state = {
       shouldShowTitle: false,
       titleStyle: {
@@ -61,10 +66,8 @@ class ToolbarButton extends React.Component<Props, State> {
   }
 
   getTitleStyle = () => {
-    const {
-      titleRef: { current: titleEl },
-      buttonRef: { current: buttonEl },
-    } = this;
+    const titleEl = this.titleRef.current;
+    const buttonEl = this.buttonRef.current;
 
     if (!titleEl || !buttonEl) {
       return {};
@@ -102,32 +105,36 @@ class ToolbarButton extends React.Component<Props, State> {
   };
 
   showTitle = () => {
-    const { titleStyle } = this.state;
-
     this.setState({
       shouldShowTitle: true,
-      titleStyle: { ...titleStyle, ...this.getTitleStyle() },
+      titleStyle: { ...this.state.titleStyle, ...this.getTitleStyle() },
     });
   };
 
   hideTitle = () => {
-    const { titleStyle } = this.state;
-
     this.setState({
       shouldShowTitle: false,
-      titleStyle: { ...titleStyle, maxWidth: 'none', pointerEvents: 'none', opacity: 0 },
+      titleStyle: { ...this.state.titleStyle, maxWidth: 'none', pointerEvents: 'none', opacity: 0 },
     });
+  };
+
+  handleFocus = (event: SyntheticFocusEvent<HTMLButtonElement>) => {
+    this.showTitle();
+    isFunction(this.props.onFocus) && this.props.onFocus(event);
+  };
+
+  handleBlur = (event: SyntheticFocusEvent<HTMLButtonElement>) => {
+    this.hideTitle();
+    isFunction(this.props.onBlur) && this.props.onBlur(event);
   };
 
   handleMouseDown = (event: SyntheticMouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    this.props.onPress(event);
+    isFunction(this.props.onPress) && this.props.onPress(event);
   };
 
   handleKeyDown = (event: SyntheticKeyboardEvent<HTMLButtonElement>) => {
-    const { shouldShowTitle } = this.state;
-
-    if (shouldShowTitle && event.key === 'Escape') {
+    if (this.state.shouldShowTitle && event.key === 'Escape') {
       this.hideTitle();
     }
   };
@@ -162,8 +169,8 @@ class ToolbarButton extends React.Component<Props, State> {
           isActive={isActive}
           disabled={isDisabled}
           onKeyDown={this.handleKeyDown}
-          onFocus={this.showTitle}
-          onBlur={this.hideTitle}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
           onMouseDown={this.handleMouseDown}
           onMouseOver={this.showTitle}
           onMouseOut={this.hideTitle}>

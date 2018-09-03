@@ -54,3 +54,10 @@ export const textFieldTrailingIconColor = secondary;
 /* Dropdown */
 export const dropdownBackgroundColor = '#fff';
 export const dropdownShadowColor = darkGray;
+
+/* BlockTypeSelect */
+export const blockTypeOptionBackgroundColor = '#fff';
+export const blockTypeOptionTextColor = darkGray;
+export const blockTypeOptionHoverColor = color(secondary)
+  .alpha(0.1)
+  .string();

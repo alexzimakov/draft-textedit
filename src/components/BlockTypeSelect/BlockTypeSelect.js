@@ -1,120 +1,161 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import pick from 'lodash.pick';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faChevronDown from '@fortawesome/fontawesome-free-solid/faChevronDown';
-import * as blockTypes from '../../constants/blockTypes';
+// @flow
+
+import * as React from 'react';
+import isFunction from 'lodash/isFunction';
+import * as types from '../../constants/types';
 import ToolbarButton from '../ToolbarButton';
-import DropdownMenu from '../DropdownMenu';
-import Option from './Option';
-import './BlockTypeSelect.css';
+import Dropdown from '../Dropdown';
+import { Label, Arrow, OptionList, getStyledOption, CheckIcon } from './styled';
 
-class BlockTypeSelect extends Component {
-  static propTypes = {
-    options: PropTypes.arrayOf(PropTypes.oneOf(Object.values(blockTypes))),
-    labels: PropTypes.objectOf(PropTypes.string),
-    popoverIsFixed: PropTypes.bool,
-    // eslint-disable-next-line
-    value: PropTypes.oneOf(Object.values(blockTypes)),
-    defaultValue: PropTypes.oneOf(Object.values(blockTypes)),
-    onChange: PropTypes.func,
-  };
+type Props = {
+  options: Array<types.BlockType>,
+  labels: { [types.BlockType]: string },
+  defaultValue: types.BlockType,
+  value?: types.BlockType,
+  shouldUseFixedDropdownPosition: boolean,
+  onChange?: (value: types.BlockType) => void,
+};
+type State = {
+  value: types.BlockType,
+  isDropdownOpen: boolean,
+};
 
-  static defaultProps = {
+class BlockTypeSelect extends React.Component<Props, State> {
+  toolbarButtonRef: types.Ref<HTMLButtonElement>;
+
+  static defaultProps: Props = {
     options: [
-      blockTypes.headerOne,
-      blockTypes.headerTwo,
-      blockTypes.headerThree,
-      blockTypes.headerFour,
-      blockTypes.headerFive,
-      blockTypes.headerSix,
-      blockTypes.paragraph,
+      'unstyled',
+      'header-one',
+      'header-two',
+      'header-three',
+      'header-four',
+      'header-five',
+      'header-six',
+      'blockquote',
+      'code-block',
+      'unordered-list-item',
+      'ordered-list-item',
     ],
     labels: {
-      [blockTypes.headerOne]: 'Heading 1',
-      [blockTypes.headerTwo]: 'Heading 2',
-      [blockTypes.headerThree]: 'Heading 3',
-      [blockTypes.headerFour]: 'Heading 4',
-      [blockTypes.headerFive]: 'Heading 5',
-      [blockTypes.headerSix]: 'Heading 6',
-      [blockTypes.blockQuote]: 'Blockquote',
-      [blockTypes.codeBlock]: 'Code',
-      [blockTypes.atomic]: 'Figure',
-      [blockTypes.unorderedList]: 'Unordered list',
-      [blockTypes.orderedList]: 'Ordered list',
-      [blockTypes.paragraph]: 'Paragraph',
+      'header-one': 'Heading 1',
+      'header-two': 'Heading 2',
+      'header-three': 'Heading 3',
+      'header-four': 'Heading 4',
+      'header-five': 'Heading 5',
+      'header-six': 'Heading 6',
+      blockquote: 'Blockquote',
+      'code-block': 'Code',
+      atomic: 'Figure',
+      'unordered-list-item': 'Unordered list',
+      'ordered-list-item': 'Ordered list',
+      unstyled: 'Paragraph',
     },
-    popoverIsFixed: false,
-    defaultValue: blockTypes.paragraph,
-    onChange: () => {},
+    defaultValue: 'unstyled',
+    shouldUseFixedDropdownPosition: false,
   };
 
-  constructor(props) {
-    super(props);
-    this.popoverRef = React.createRef();
-    this.state = { value: props.defaultValue, isActive: false };
+  static getDerivedStateFromProps(props: Props) {
+    if ('value' in props) {
+      return { value: props.options.includes(props.value) ? props.value : 'unstyled' };
+    }
+
+    return null;
   }
 
-  getState = () => ({ ...this.state, ...pick(this.props, ['value']) });
+  constructor(props: Props) {
+    super(props);
+    this.toolbarButtonRef = React.createRef();
+    this.state = { value: props.defaultValue, isDropdownOpen: false };
+  }
 
-  handlePopoverOpen = () => {
-    this.setState({ isActive: true });
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleEscapeKeydown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleEscapeKeydown);
+  }
+
+  getOptions = () => {
+    const options = this.props.options;
+
+    if (options.includes('unstyled')) {
+      return options;
+    }
+
+    return ['unstyled', ...options];
   };
 
-  handlePopoverClose = () => {
-    this.setState({ isActive: false });
+  openDropdown = () => {
+    this.setState({ isDropdownOpen: true });
   };
 
-  handleOptionPress = value => {
-    const { onChange } = this.props;
-
-    this.setState({ value });
-    this.popoverRef.current.closePopover();
-    onChange(value);
+  closeDropdown = () => {
+    this.setState({ isDropdownOpen: false });
   };
 
-  renderPopoverContent = () => {
-    const { options, labels } = this.props;
-    const { value } = this.getState();
+  handleEscapeKeydown = (event: SyntheticKeyboardEvent<HTMLElement>) => {
+    if (this.state.isDropdownOpen && event.key === 'Escape') {
+      this.closeDropdown();
+    }
+  };
 
-    return (
-      <ul className="DraftTextEditBlockTypeSelect-Options" role="listbox">
-        {options.map(option => (
-          <Option
-            key={option}
-            value={option}
-            label={labels[option]}
-            selected={option === value}
-            onPress={this.handleOptionPress}
-          />
-        ))}
-      </ul>
-    );
+  handleToolbarButtonPress = () => {
+    this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
+  };
+
+  handleDropdownOutsideClick = (event: SyntheticMouseEvent<HTMLElement>) => {
+    const toolbarButtonEl = this.toolbarButtonRef.current;
+
+    if (toolbarButtonEl && !toolbarButtonEl.contains((event.target: any))) {
+      this.closeDropdown();
+    }
+  };
+
+  handleOptionPress = (option: types.BlockType) => {
+    this.setState({ value: option, isDropdownOpen: false });
+    isFunction(this.props.onChange) && this.props.onChange(option);
   };
 
   render() {
-    const { labels, popoverIsFixed } = this.props;
-    const { value, isActive } = this.getState();
+    const { labels, shouldUseFixedDropdownPosition } = this.props;
+    const { value, isDropdownOpen } = this.state;
+    const options = this.getOptions();
 
     return (
-      <div className="DraftTextEditBlockTypeSelect">
-        <DropdownMenu
-          ref={this.popoverRef}
-          content={this.renderPopoverContent()}
-          positionFixed={popoverIsFixed}
-          onOpen={this.handlePopoverOpen}
-          onClose={this.handlePopoverClose}>
-          <ToolbarButton className="DraftTextEditBlockTypeSelect-Button" active={isActive}>
-            <span className="DraftTextEditBlockTypeSelect-Button_label">
-              {labels[value] || value}
-            </span>
-            <FontAwesomeIcon
-              className="DraftTextEditBlockTypeSelect-Button_arrow"
-              icon={faChevronDown}
-            />
-          </ToolbarButton>
-        </DropdownMenu>
-      </div>
+      <React.Fragment>
+        <ToolbarButton
+          forwardedRef={this.toolbarButtonRef}
+          isActive={isDropdownOpen}
+          onFocus={this.openDropdown}
+          onBlur={this.closeDropdown}
+          onPress={this.handleToolbarButtonPress}>
+          <Label>{labels[value] || value}</Label> <Arrow />
+        </ToolbarButton>
+        <Dropdown
+          elementRef={this.toolbarButtonRef}
+          isOpen={isDropdownOpen}
+          shouldUseFixedPosition={shouldUseFixedDropdownPosition}
+          onOutsideClick={this.handleDropdownOutsideClick}>
+          <OptionList>
+            {options.map(option => {
+              const Option = getStyledOption(option);
+              const onMouseDown = (event: SyntheticMouseEvent<HTMLLIElement>) => {
+                event.preventDefault();
+                this.handleOptionPress(option);
+              };
+
+              return (
+                <Option key={option} onMouseDown={onMouseDown}>
+                  {value === option && <CheckIcon />}
+                  {labels[option]}
+                </Option>
+              );
+            })}
+          </OptionList>
+        </Dropdown>
+      </React.Fragment>
     );
   }
 }

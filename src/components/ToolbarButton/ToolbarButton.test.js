@@ -63,7 +63,7 @@ describe('<ToolbarButton /> component', () => {
 
   it('should call `onPress` callback', () => {
     const onPress = jest.fn();
-    const event = { preventDefault: jest.fn() };
+    const event = new MouseEvent('mousedown');
     const toolbarButton = renderComponent({ onPress });
 
     toolbarButton
@@ -73,6 +73,32 @@ describe('<ToolbarButton /> component', () => {
 
     expect(event.preventDefault).toHaveBeenCalled();
     expect(onPress).toHaveBeenCalledWith(event);
+  });
+
+  it('should call `onFocus` callback', () => {
+    const onFocus = jest.fn();
+    const event = new FocusEvent('focus');
+    const toolbarButton = renderComponent({ onFocus });
+
+    toolbarButton
+      .find('styled__StyledButton')
+      .props()
+      .onFocus(event);
+
+    expect(onFocus).toHaveBeenCalledWith(event);
+  });
+
+  it('should call `onBlur` callback', () => {
+    const onBlur = jest.fn();
+    const event = new FocusEvent('blur');
+    const toolbarButton = renderComponent({ onBlur });
+
+    toolbarButton
+      .find('styled__StyledButton')
+      .props()
+      .onBlur(event);
+
+    expect(onBlur).toHaveBeenCalledWith(event);
   });
 
   it('should get title style', () => {

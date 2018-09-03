@@ -1,16 +1,13 @@
-```jsx
+```js
 <BlockTypeSelect
   options={[
     'unstyled',
     'header-one',
     'header-two',
     'header-three',
-    'header-four',
-    'header-five',
-    'header-six',
-    'unordered-list-item',
-    'ordered-list-item',
     'code-block',
+    'ordered-list-item',
+    'unordered-list-item',
   ]}
 />
 ```
