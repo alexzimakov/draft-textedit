@@ -57,7 +57,10 @@ describe('<ToolbarButton /> component', () => {
     const toolbarButton = renderComponent();
 
     expect(() => {
-      toolbarButton.props().onPress();
+      toolbarButton
+        .find('styled__StyledButton')
+        .props()
+        .onMouseDown(new MouseEvent('mousedown'));
     }).not.toThrow();
   });
 
@@ -66,6 +69,7 @@ describe('<ToolbarButton /> component', () => {
     const event = new MouseEvent('mousedown');
     const toolbarButton = renderComponent({ onPress });
 
+    jest.spyOn(event, 'preventDefault');
     toolbarButton
       .find('styled__StyledButton')
       .props()
