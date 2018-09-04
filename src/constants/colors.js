@@ -18,9 +18,21 @@ export const focusedShadowColor = color(primary)
   .alpha(0.25)
   .string();
 
-/**
- * Components colors
- */
+/* input colors */
+export const inputBorderColor = color(secondary)
+  .lighten(0.8)
+  .string();
+export const inputFocusBorderColor = primary;
+export const inputBackgroundColor = '#fff';
+export const inputDisabledBackgroundColor = color(secondary)
+  .alpha(0.05)
+  .string();
+export const inputPlaceholderColor = color(secondary)
+  .lighten(0.5)
+  .string();
+export const inputTextColor = darkGray;
+export const inputLeadingIconColor = secondary;
+export const inputTrailingIconColor = secondary;
 
 /* Button */
 export const buttonContainerColor = primary;
@@ -34,22 +46,6 @@ export const toolbarButtonActiveLabelColor = color(secondary)
   .string();
 export const toolbarButtonTitleContainerColor = darkGray;
 export const toolbarButtonTitleTextColor = '#fff';
-
-/* TextField */
-export const textFieldBorderColor = color(secondary)
-  .lighten(0.8)
-  .string();
-export const textFieldFocusBorderColor = primary;
-export const textFieldBackgroundColor = '#fff';
-export const textFieldDisabledBackgroundColor = color(secondary)
-  .alpha(0.05)
-  .string();
-export const textFieldPlaceholderColor = color(secondary)
-  .lighten(0.5)
-  .string();
-export const textFieldTextColor = darkGray;
-export const textFieldLeadingIconColor = secondary;
-export const textFieldTrailingIconColor = secondary;
 
 /* Dropdown */
 export const dropdownBackgroundColor = '#fff';

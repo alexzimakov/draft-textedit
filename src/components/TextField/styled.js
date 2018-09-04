@@ -4,26 +4,45 @@ import styled, { css } from 'styled-components';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {
   focusedShadowColor,
-  textFieldBorderColor,
-  textFieldFocusBorderColor,
-  textFieldBackgroundColor,
-  textFieldDisabledBackgroundColor,
-  textFieldPlaceholderColor,
-  textFieldTextColor,
-  textFieldLeadingIconColor,
-  textFieldTrailingIconColor,
+  inputBorderColor,
+  inputFocusBorderColor,
+  inputBackgroundColor,
+  inputDisabledBackgroundColor,
+  inputPlaceholderColor,
+  inputTextColor,
+  inputLeadingIconColor,
+  inputTrailingIconColor,
 } from '../../constants/colors';
+
+export const inputMixin = css`
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-width: 180px;
+  height: ${getHeight};
+  padding: 0 8px;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+  transition-property: box-shadow, border-color;
+  color: ${inputTextColor};
+  border: 1px solid ${inputBorderColor};
+  border-radius: ${getBorderRadius};
+  box-shadow: ${getBoxShadow};
+  background: ${inputBackgroundColor};
+  font-size: ${getFontSize};
+`;
 
 export const LeadingIcon = styled(FontAwesomeIcon)`
   ${iconMixin};
   margin-right: 8px;
-  color: ${textFieldLeadingIconColor};
+  color: ${inputLeadingIconColor};
 `;
 
 export const TrailingIcon = styled(FontAwesomeIcon)`
   ${iconMixin};
   margin-left: 8px;
-  color: ${textFieldTrailingIconColor};
+  color: ${inputTrailingIconColor};
 `;
 
 export const Input = styled.input`
@@ -40,29 +59,15 @@ export const Input = styled.input`
   appearance: none;
 
   &::placeholder {
-    color: ${textFieldPlaceholderColor};
+    color: ${inputPlaceholderColor};
   }
 `;
 
 export const InputContainer = styled.div`
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  min-width: 180px;
-  height: ${getHeight};
-  padding: 0 8px;
+  ${inputMixin};
   cursor: ${props => (props.isDisabled ? 'not-allowed' : 'text')};
-  transition-duration: 150ms;
-  transition-timing-function: ease;
-  transition-property: box-shadow, border-color;
-  color: ${textFieldTextColor};
-  border: 1px solid ${props => (props.isFocused ? textFieldFocusBorderColor : textFieldBorderColor)};
-  border-radius: ${getBorderRadius};
-  box-shadow: ${getBoxShadow};
-  background: ${props =>
-    props.isDisabled ? textFieldDisabledBackgroundColor : textFieldBackgroundColor};
-  font-size: ${getFontSize};
+  border: 1px solid ${props => (props.isFocused ? inputFocusBorderColor : inputBorderColor)};
+  background: ${props => (props.isDisabled ? inputDisabledBackgroundColor : inputBackgroundColor)};
 
   ${Input} {
     flex: 1;
