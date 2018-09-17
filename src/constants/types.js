@@ -25,3 +25,8 @@ export type BlockType =
   | 'unordered-list-item'
   | 'ordered-list-item'
   | 'unstyled';
+
+export type EntityType = 'LINK' | 'TOKEN' | 'PHOTO' | 'IMAGE';
+
+export type Mutability = 'MUTABLE' | 'IMMUTABLE' | 'SEGMENTED';
+
