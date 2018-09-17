@@ -57,3 +57,12 @@ export const blockTypeOptionTextColor = darkGray;
 export const blockTypeOptionHoverColor = color(secondary)
   .alpha(0.1)
   .string();
+
+/* Dialog */
+export const dialogBackdropBackgroundColor = color(darkGray)
+  .alpha(0.2)
+  .string();
+export const dialogContainerBackgroundColor = '#fff';
+export const dialogContainerShadowColor = darkGray;
+export const dialogTitleColor = darkGray;
+export const dialogTextColor = darkGray;
