@@ -6,6 +6,8 @@ import color from 'color';
  * Base colors
  */
 export const blue = '#157dfb';
+export const yellow = '#fcba04';
+export const orange = '#fa7922';
 export const gray = '#757575';
 export const darkGray = '#1a1a1a';
 
@@ -82,4 +84,21 @@ export const linkPluginActionButtonBorderColor = color(secondary)
 export const linkPluginActionButtonBackgroundColor = '#fff';
 export const linkPluginActionButtonBackgroundHoverColor = color(secondary)
   .lighten(1.05)
+  .string();
+
+/* Editor */
+export const editorBackgroundColor = '#fff';
+export const editorToolbarBackgroundColor = '#fff';
+export const editorTextColor = color(darkGray)
+  .lighten(0.95)
+  .string();
+export const monospaceStyleTextColor = darkGray;
+export const monospaceStyleBackgroundColor = color(yellow)
+  .alpha(0.15)
+  .string();
+export const blockQuoteBorderColor = color(secondary)
+  .lighten(0.75)
+  .string();
+export const blockQuoteBackgroundColor = color(secondary)
+  .alpha(0.1)
   .string();
