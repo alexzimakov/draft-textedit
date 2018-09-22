@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faBold from '@fortawesome/fontawesome-free-solid/faBold';
+import { faBold } from '@fortawesome/free-solid-svg-icons';
 import ToolbarButton from './ToolbarButton';
 
 function renderComponent({ title = 'test', ...otherProps } = {}, mountFn = mount) {
