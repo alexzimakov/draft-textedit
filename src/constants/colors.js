@@ -66,3 +66,20 @@ export const dialogContainerBackgroundColor = '#fff';
 export const dialogContainerShadowColor = darkGray;
 export const dialogTitleColor = darkGray;
 export const dialogTextColor = darkGray;
+
+/* LinkPlugin */
+export const linkPluginTextColor = blue;
+export const linkPluginBackgroundColor = color(blue)
+  .alpha(0.1)
+  .string();
+export const linkPluginActiveTextColor = darkGray;
+export const linkPluginActiveBackgroundColor = color(darkGray)
+  .alpha(0.1)
+  .string();
+export const linkPluginActionButtonBorderColor = color(secondary)
+  .lighten(0.8)
+  .string();
+export const linkPluginActionButtonBackgroundColor = '#fff';
+export const linkPluginActionButtonBackgroundHoverColor = color(secondary)
+  .lighten(1.05)
+  .string();

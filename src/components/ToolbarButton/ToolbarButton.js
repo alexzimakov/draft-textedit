@@ -40,6 +40,14 @@ class ToolbarButton extends React.Component<Props, State> {
     isDisabled: false,
   };
 
+  static getDerivedStateFromProps(props: Props) {
+    if (props.isDisabled) {
+      return { shouldShowTitle: false };
+    }
+
+    return null;
+  }
+
   constructor(props: Props) {
     super(props);
     this.titleRoot = document.createElement('div');

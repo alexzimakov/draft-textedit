@@ -4,14 +4,15 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import uniqueId from 'lodash/uniqueId';
 import isFunction from 'lodash/isFunction';
+import type { Style } from '../../constants/types';
 import { Container } from './styled';
 
 type Props = {
   children: React.Node,
   elementRef: { current: ?HTMLElement },
   isOpen: boolean,
-  zIndex: number,
   shouldUseFixedPosition: boolean,
+  style?: Style,
   onOutsideClick?: (event: SyntheticMouseEvent<HTMLElement>) => void,
 };
 type State = {
@@ -32,7 +33,7 @@ class Dropdown extends React.Component<Props, State> {
     children: null,
     elementRef: { current: null },
     isOpen: false,
-    zIndex: 9999,
+    style: { zIndex: 9999 },
     shouldUseFixedPosition: false,
   };
 
@@ -59,9 +60,13 @@ class Dropdown extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { isOpen } = this.props;
+    const isOpen = this.props.isOpen;
+    const shouldUseFixedPosition = this.props.shouldUseFixedPosition;
 
-    if (isOpen !== prevProps.isOpen && isOpen) {
+    if (
+      isOpen &&
+      (isOpen !== prevProps.isOpen || shouldUseFixedPosition !== prevProps.shouldUseFixedPosition)
+    ) {
       this.setOpenContainerStyle();
     }
 
@@ -77,22 +82,17 @@ class Dropdown extends React.Component<Props, State> {
   }
 
   setOpenContainerStyle = () => {
-    const {
-      elementRef: { current: trigerEl },
-      shouldUseFixedPosition,
-    } = this.props;
-    const {
-      dropdownRef: { current: dropdownEl },
-    } = this;
+    const elementRef = this.props.elementRef.current;
+    const dropdownRef = this.dropdownRef.current;
 
-    if (dropdownEl && trigerEl) {
+    if (dropdownRef && elementRef) {
       const verticalOffset = 4;
       const horizontalOffset = 8;
       const viewportWidth = window.document.documentElement.clientWidth;
       const viewportHeight = window.document.documentElement.clientHeight;
-      const scrollTop = shouldUseFixedPosition ? 0 : window.pageYOffset;
-      const { width, height } = dropdownEl.getBoundingClientRect();
-      const { top, right, bottom, left } = trigerEl.getBoundingClientRect();
+      const scrollTop = this.props.shouldUseFixedPosition ? 0 : window.pageYOffset;
+      const { width, height } = dropdownRef.getBoundingClientRect();
+      const { top, right, bottom, left } = elementRef.getBoundingClientRect();
       let maxWidth = 320;
       let x = left;
       let y = bottom + verticalOffset;
@@ -112,7 +112,7 @@ class Dropdown extends React.Component<Props, State> {
 
       this.setState({
         containerStyle: {
-          position: shouldUseFixedPosition ? 'fixed' : 'absolute',
+          position: this.props.shouldUseFixedPosition ? 'fixed' : 'absolute',
           maxWidth,
           transform: `translate(${x}px, ${y + scrollTop}px)`,
           pointerEvents: 'all',
@@ -134,34 +134,31 @@ class Dropdown extends React.Component<Props, State> {
   };
 
   handleWindowResize = () => {
-    const { isOpen } = this.props;
-
-    if (isOpen) {
+    if (this.props.isOpen) {
       this.setOpenContainerStyle();
     }
   };
 
   handleBodyClick = (event: SyntheticMouseEvent<HTMLElement>) => {
-    const { isOpen, onOutsideClick } = this.props;
-    const { current: dropdownEl } = this.dropdownRef;
+    const dropdownRef = this.dropdownRef.current;
+    const onOutsideClick = this.props.onOutsideClick;
 
     if (
       isFunction(onOutsideClick) &&
-      isOpen &&
-      dropdownEl &&
-      !dropdownEl.contains((event.target: any))
+      this.props.isOpen &&
+      dropdownRef &&
+      !dropdownRef.contains((event.target: any))
     ) {
       onOutsideClick(event);
     }
   };
 
   render() {
-    const { children, zIndex } = this.props;
-    const { containerStyle } = this.state;
-
     return ReactDOM.createPortal(
-      <Container innerRef={this.dropdownRef} style={{ zIndex, ...containerStyle }}>
-        {children}
+      <Container
+        innerRef={this.dropdownRef}
+        style={{ ...this.props.style, ...this.state.containerStyle }}>
+        {this.props.children}
       </Container>,
       this.dropdownRoot
     );

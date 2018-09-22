@@ -61,6 +61,11 @@ export const Input = styled.input`
   &::placeholder {
     color: ${inputPlaceholderColor};
   }
+
+  :-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 40px ${inputBackgroundColor};
+    -webkit-text-fill-color: ${inputTextColor};
+  }
 `;
 
 export const InputContainer = styled.div`
