@@ -1,13 +1,13 @@
-import { detectOS } from '../utils';
+import Utils from '../Utils';
 
-describe('utils', () => {
+describe('Utils', () => {
   describe('detectOS()', () => {
     it('should returns `windows`', () => {
       Object.defineProperty(global.navigator, 'appVersion', {
         writable: true,
         value: '5.0 Windows Webkit',
       });
-      expect(detectOS()).toBe('windows');
+      expect(Utils.detectOS()).toBe('windows');
     });
 
     it('should returns `mac`', () => {
@@ -15,7 +15,7 @@ describe('utils', () => {
         writable: true,
         value: '5.0 Mac OS X Webkit',
       });
-      expect(detectOS()).toBe('mac');
+      expect(Utils.detectOS()).toBe('macOS');
     });
 
     it('should returns `unix`', () => {
@@ -23,7 +23,7 @@ describe('utils', () => {
         writable: true,
         value: '5.0 X11 Webkit',
       });
-      expect(detectOS()).toBe('unix');
+      expect(Utils.detectOS()).toBe('unix');
     });
 
     it('should returns `linux`', () => {
@@ -31,7 +31,7 @@ describe('utils', () => {
         writable: true,
         value: '5.0 Linux Webkit',
       });
-      expect(detectOS()).toBe('linux');
+      expect(Utils.detectOS()).toBe('linux');
     });
 
     it('should returns `unknown`', () => {
@@ -39,7 +39,39 @@ describe('utils', () => {
         writable: true,
         value: '5.0 (KHTML, like Geko) Webkit',
       });
-      expect(detectOS()).toBe('unknown');
+      expect(Utils.detectOS()).toBe('unknown');
+    });
+  });
+
+  describe('openUrl()', () => {
+    it('should open URL in new tab', () => {
+      const tabMock = { focus: jest.fn() };
+      const dummyUrl = 'http://example.com';
+      jest.spyOn(window, 'open').mockImplementation((url, target) => {
+        expect(url).toBe(dummyUrl);
+        expect(target).toBe('_blank');
+        return tabMock;
+      });
+
+      Utils.openUrl(dummyUrl);
+
+      expect(tabMock.focus).toHaveBeenCalled();
+    });
+  });
+
+  describe('isUrl()', () => {
+    it('should return true if URL is valid', () => {
+      expect(Utils.isUrl('http://example.com/')).toBeTruthy();
+      expect(Utils.isUrl('https://example.com')).toBeTruthy();
+      expect(Utils.isUrl('example.com')).toBeTruthy();
+      expect(Utils.isUrl('example.com?foo=bar')).toBeTruthy();
+    });
+
+    it('should return false if URL is invalid', () => {
+      expect(Utils.isUrl()).toBeFalsy();
+      expect(Utils.isUrl('')).toBeFalsy();
+      expect(Utils.isUrl('foo')).toBeFalsy();
+      expect(Utils.isUrl('http://example com')).toBeFalsy();
     });
   });
 });

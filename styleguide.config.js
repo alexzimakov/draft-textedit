@@ -1,8 +1,9 @@
-const path = require('path');
-
 module.exports = {
+  compilerConfig: {
+    transforms: { dangerousTaggedTemplateString: true },
+  },
   components: 'src/components/**/[A-Z]*.js',
-  require: [path.join(__dirname, 'src/DraftTextEdit.css')],
+  require: [],
   webpackConfig: {
     module: {
       rules: [
