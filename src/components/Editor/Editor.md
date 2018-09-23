@@ -1,3 +1,3 @@
-```jsx
+```js
 <Editor placeholder="Write something..." />
 ```

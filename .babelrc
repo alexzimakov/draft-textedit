@@ -1,15 +1,8 @@
 {
   "presets": ["env", "react"],
-  "plugins": ["transform-object-rest-spread", "transform-class-properties"],
-  "env": {
-    "test": {
-      "plugins": ["./config/babel-plugins/babel-plugin-remove-css-imports.js"]
-    },
-    "development": {
-      "plugins": ["./config/babel-plugins/babel-plugin-remove-css-imports.js"]
-    },
-    "production": {
-      "plugins": ["./config/babel-plugins/babel-plugin-remove-css-imports.js"]
-    }
-  }
+  "plugins": [
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "babel-plugin-styled-components"
+  ]
 }

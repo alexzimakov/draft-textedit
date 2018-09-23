@@ -1,6 +1,6 @@
 # Draft TextEdit
 
-A rich text editor built using [React](https://github.com/facebook/react) and [Draft.js](https://github.com/facebook/draft-js).
+A rich text editor built using [React](https://github.com/facebook/react), [Draft.js](https://github.com/facebook/draft-js) and [styled-components](https://github.com/styled-components/styled-components).
 
 ![DraftTextEdit](images/DraftTextEdit.png)
 
@@ -18,16 +18,15 @@ $ npm i draft-textedit
 
 ### Using DraftTextEdit
 
-Import `Editor` component and the styles for it.
+Import `Editor` component.
 
 ```js
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import Editor from 'draft-textedit';
-import 'draft-textedit/dist/DraftTextEdit.css';
 import './App.css';
 
-class App extends Component {
+class App extends Component.Component {
   render() {
     return (
       <div className="App">
