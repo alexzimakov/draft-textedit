@@ -4,7 +4,7 @@ import React from 'react';
 import type { Node } from 'react';
 import { EditorState } from 'draft-js';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faRedo } from '@fortawesome/free-solid-svg-icons';
+import { faRedo } from '@fortawesome/free-solid-svg-icons/faRedo';
 import { Utils } from '../../lib/index';
 import AbstractPlugin from '../AbstractPlugin';
 import ToolbarButton from '../../components/ToolbarButton';

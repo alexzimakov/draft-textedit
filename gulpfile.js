@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const webpack = require('webpack-stream');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const runSequence = require('run-sequence');
 const minimist = require('minimist');
 const del = require('del');
@@ -71,6 +72,13 @@ gulp.task('dist', done => {
             amd: 'draft-js',
           },
         },
+        plugins: [
+          new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+            generateStatsFile: true,
+          }),
+        ],
       }),
       gulp.dest('dist/'),
     ],

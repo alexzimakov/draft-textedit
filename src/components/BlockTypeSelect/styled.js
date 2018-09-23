@@ -2,7 +2,8 @@
 
 import styled from 'styled-components';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faChevronDown, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import * as types from '../../constants/types';
 import { baseFontStack, monospaceFontStack } from '../../constants/fonts';
 import {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { faSearch, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
+import { faEye } from '@fortawesome/free-solid-svg-icons/faEye';
 import TextField from './TextField';
 
 function renderComponent(props = {}, mountFn = mount) {

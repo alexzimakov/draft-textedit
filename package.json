@@ -1,6 +1,6 @@
 {
   "name": "draft-textedit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A rich text editor built using React, Draft.js and styled-components.",
   "main": "lib/DraftTextEdit.js",
   "browser": "dist/DraftTextEdit.js",

@@ -4,7 +4,7 @@ import React from 'react';
 import { EditorState } from 'draft-js';
 import inRange from 'lodash/inRange';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { faLink } from '@fortawesome/free-solid-svg-icons/faLink';
 import type { EditorActions } from '../../constants/types';
 import { EventsManager, EntityUtils } from '../../lib';
 import ToolbarButton from '../../components/ToolbarButton';

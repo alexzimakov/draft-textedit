@@ -1,10 +1,8 @@
-import {
-  faBold,
-  faCode,
-  faItalic,
-  faStrikethrough,
-  faUnderline,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBold } from '@fortawesome/free-solid-svg-icons/faBold';
+import { faCode } from '@fortawesome/free-solid-svg-icons/faCode';
+import { faItalic } from '@fortawesome/free-solid-svg-icons/faItalic';
+import { faStrikethrough } from '@fortawesome/free-solid-svg-icons/faStrikethrough';
+import { faUnderline } from '@fortawesome/free-solid-svg-icons/faUnderline';
 import { Utils } from '../../lib';
 import InlineStylePlugin from './InlineStylePlugin';
 

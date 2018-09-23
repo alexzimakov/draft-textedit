@@ -63,3 +63,5 @@ typings/
 dist/
 /lib/
 styleguide/
+stats.json
+report.html

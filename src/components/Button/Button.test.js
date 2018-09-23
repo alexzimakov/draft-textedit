@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 import Button from './Button';
 
 function renderComponent(props = {}, mountFn = shallow) {

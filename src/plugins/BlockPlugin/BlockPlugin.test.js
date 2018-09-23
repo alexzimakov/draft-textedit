@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { EditorState, RichUtils } from 'draft-js';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
+import { faCode } from '@fortawesome/free-solid-svg-icons/faCode';
 import BlockPlugin from './BlockPlugin';
 
 const preferences = {

@@ -3,7 +3,9 @@
 ```js
 const styled = require('styled-components').default;
 const FontAwesomeIcon = require('@fortawesome/react-fontawesome').default;
-const { faGift, faArrowRight, faHeart } = require('@fortawesome/free-solid-svg-icons');
+const { faGift } = require('@fortawesome/free-solid-svg-icons/faGift');
+const { faArrowRight } = require('@fortawesome/free-solid-svg-icons/faArrowRight');
+const { faHeart } = require('@fortawesome/free-solid-svg-icons/faHeart');
 
 const Wrapper = styled.div`
   display: flex;
@@ -34,7 +36,9 @@ const Icon = styled(FontAwesomeIcon)`
 ```js
 const styled = require('styled-components').default;
 const FontAwesomeIcon = require('@fortawesome/react-fontawesome').default;
-const { faGift, faArrowRight, faHeart } = require('@fortawesome/free-solid-svg-icons');
+const { faGift } = require('@fortawesome/free-solid-svg-icons/faGift');
+const { faArrowRight } = require('@fortawesome/free-solid-svg-icons/faArrowRight');
+const { faHeart } = require('@fortawesome/free-solid-svg-icons/faHeart');
 
 const Wrapper = styled.div`
   display: flex;
@@ -69,7 +73,9 @@ const Icon = styled(FontAwesomeIcon)`
 ```js
 const styled = require('styled-components').default;
 const FontAwesomeIcon = require('@fortawesome/react-fontawesome').default;
-const { faGift, faArrowRight, faHeart } = require('@fortawesome/free-solid-svg-icons');
+const { faGift } = require('@fortawesome/free-solid-svg-icons/faGift');
+const { faArrowRight } = require('@fortawesome/free-solid-svg-icons/faArrowRight');
+const { faHeart } = require('@fortawesome/free-solid-svg-icons/faHeart');
 
 const Wrapper = styled.div`
   display: flex;

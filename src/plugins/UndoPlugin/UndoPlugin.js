@@ -4,7 +4,7 @@ import React from 'react';
 import type { Node } from 'react';
 import { EditorState } from 'draft-js';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faUndo } from '@fortawesome/free-solid-svg-icons';
+import { faUndo } from '@fortawesome/free-solid-svg-icons/faUndo';
 import { Utils } from '../../lib/index';
 import AbstractPlugin from '../AbstractPlugin';
 import ToolbarButton from '../../components/ToolbarButton';

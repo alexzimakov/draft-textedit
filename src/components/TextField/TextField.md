@@ -34,7 +34,8 @@ const Wrapper = styled.div`
 
 ```js
 const styled = require('styled-components').default;
-const { faSearch, faEye } = require('@fortawesome/free-solid-svg-icons');
+const { faSearch } = require('@fortawesome/free-solid-svg-icons/faSearch');
+const { faEye } = require('@fortawesome/free-solid-svg-icons/faEye');
 
 const Wrapper = styled.div`
   display: flex;

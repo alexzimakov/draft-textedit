@@ -1,6 +1,6 @@
 ```js
 const styled = require('styled-components').default;
-const { faEllipsisV } = require('@fortawesome/free-solid-svg-icons');
+const { faEllipsisV } = require('@fortawesome/free-solid-svg-icons/faEllipsisV');
 
 const ListItem = styled.li`
   box-sizing: border-box;

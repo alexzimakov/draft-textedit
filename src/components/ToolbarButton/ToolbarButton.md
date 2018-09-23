@@ -1,7 +1,9 @@
 ```js
 const styled = require('styled-components').default;
 const FontAwesomeIcon = require('@fortawesome/react-fontawesome').default;
-const { faBold, faItalic, faUnderline } = require('@fortawesome/free-solid-svg-icons');
+const { faBold } = require('@fortawesome/free-solid-svg-icons/faBold');
+const { faItalic } = require('@fortawesome/free-solid-svg-icons/faItalic');
+const { faUnderline } = require('@fortawesome/free-solid-svg-icons/faUnderline');
 
 const Wrapper = styled.div`
   display: flex;

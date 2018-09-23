@@ -1,4 +1,6 @@
-import { faListOl, faListUl, faQuoteRight } from '@fortawesome/free-solid-svg-icons';
+import { faListOl } from '@fortawesome/free-solid-svg-icons/faListOl';
+import { faListUl } from '@fortawesome/free-solid-svg-icons/faListUl';
+import { faQuoteRight } from '@fortawesome/free-solid-svg-icons/faQuoteRight';
 import BlockPlugin from './BlockPlugin';
 
 export const unorderedListPlugin = new BlockPlugin({

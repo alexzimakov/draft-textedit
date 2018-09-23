@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { EditorState, RichUtils } from 'draft-js';
-import { faBold } from '@fortawesome/free-solid-svg-icons';
+import { faBold } from '@fortawesome/free-solid-svg-icons/faBold';
 import InlineStylePlugin from './InlineStylePlugin';
 
 const preferences = {
