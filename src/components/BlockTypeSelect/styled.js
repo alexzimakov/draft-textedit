@@ -56,36 +56,36 @@ export const Option = styled.li`
   }
 `;
 
-export const HeaderOneOption = Option.extend`
+export const HeaderOneOption = styled(Option)`
   font-size: 1.602rem;
   font-weight: 700;
 `;
 
-export const HeaderTwoOption = Option.extend`
+export const HeaderTwoOption = styled(Option)`
   font-size: 1.424rem;
   font-weight: 700;
 `;
 
-export const HeaderThreeOption = Option.extend`
+export const HeaderThreeOption = styled(Option)`
   font-size: 1.266rem;
   font-weight: 700;
 `;
 
-export const HeaderFourOption = Option.extend`
+export const HeaderFourOption = styled(Option)`
   font-size: 1.125rem;
   font-weight: 700;
 `;
 
-export const HeaderFiveOption = Option.extend`
+export const HeaderFiveOption = styled(Option)`
   font-size: 1rem;
   font-weight: 700;
 `;
 
-export const HeaderSixOption = Option.extend`
+export const HeaderSixOption = styled(Option)`
   font-weight: 700;
 `;
 
-export const BlockquoteOption = Option.extend`
+export const BlockquoteOption = styled(Option)`
   &::before {
     content: '\\0201C';
   }
@@ -95,11 +95,11 @@ export const BlockquoteOption = Option.extend`
   }
 `;
 
-export const CodeBlockOption = Option.extend`
+export const CodeBlockOption = styled(Option)`
   font-family: ${monospaceFontStack};
 `;
 
-export const UnorderListOption = Option.extend`
+export const UnorderListOption = styled(Option)`
   &::before {
     display: inline-block;
     margin-right: 8px;
@@ -107,7 +107,7 @@ export const UnorderListOption = Option.extend`
   }
 `;
 
-export const OrderListOption = Option.extend`
+export const OrderListOption = styled(Option)`
   &::before {
     display: inline-block;
     margin-right: 8px;

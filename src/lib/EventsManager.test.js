@@ -1,4 +1,4 @@
-import EventsManager from '../EventsManager';
+import EventsManager from './EventsManager';
 
 const listener = jest.fn();
 const listener1 = jest.fn();

@@ -7,9 +7,6 @@ const pump = require('pump');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
-const concat = require('gulp-concat');
-const autoprefixer = require('gulp-autoprefixer');
-const cleanCSS = require('gulp-clean-css');
 
 const knownOptions = {
   string: ['env', 'component'],
@@ -21,13 +18,7 @@ const options = minimist(process.argv.slice(2), knownOptions);
 const paths = {
   lib: 'lib',
   dist: 'dist',
-  src: [
-    'src/**/*.js',
-    '!src/**/__tests__/*.js',
-    '!src/**/*.test.js',
-    '!src/**/*.spec.js',
-  ],
-  srcStyle: 'src/**/*.css',
+  src: ['src/**/*.js', '!src/**/__tests__/*.js', '!src/**/*.test.js', '!src/**/*.spec.js'],
 };
 
 gulp.task('clean', () => {
@@ -61,11 +52,11 @@ gulp.task('dist', done => {
             commonjs2: 'react-dom',
             amd: 'react-dom',
           },
-          'prop-types': {
-            root: 'PropTypes',
-            commonjs: 'prop-types',
-            commonjs2: 'prop-types',
-            amd: 'prop-types',
+          'styled-components': {
+            root: 'styled',
+            commonjs: 'styled-components',
+            commonjs2: 'styled-components',
+            amd: 'styled-components',
           },
           immutable: {
             root: 'Immutable',
@@ -87,18 +78,10 @@ gulp.task('dist', done => {
   );
 });
 
-gulp.task('style', () =>
-  gulp
-    .src(paths.srcStyle)
-    .pipe(concat(`${options.component}.css`))
-    .pipe(autoprefixer({ flexbox: 'no-2009' }))
-    .pipe(gulp.dest(paths.dist))
-);
-
 gulp.task('compress:js', done => {
   pump(
     [
-      gulp.src('lib/*.js'),
+      gulp.src('dist/*.js'),
       uglify(),
       rename({ suffix: '.min', extname: '.js' }),
       gulp.dest(paths.dist),
@@ -107,36 +90,20 @@ gulp.task('compress:js', done => {
   );
 });
 
-gulp.task('compress:css', done => {
-  pump(
-    [
-      gulp.src(`dist/${options.component}.css`),
-      cleanCSS(),
-      rename({ suffix: '.min', extname: '.css' }),
-      gulp.dest(paths.dist),
-    ],
-    done
-  );
-});
-
 gulp.task('build', done => {
-  const tasks = ['clean', 'lib', ['dist', 'style']];
+  const tasks = ['clean', 'lib', 'dist'];
 
   if (options.env === 'production') {
-    tasks.push(['compress:js', 'compress:css']);
+    tasks.push('compress:js');
   }
 
   runSequence(...tasks, done);
-});
-
-gulp.task('style:watch', () => {
-  gulp.watch(paths.srcStyle, ['style']);
 });
 
 gulp.task('dist:watch', () => {
   gulp.watch(paths.src, ['lib', 'dist']);
 });
 
-gulp.task('dev', ['build', 'dist:watch', 'style:watch']);
+gulp.task('dev', ['build', 'dist:watch']);
 
 gulp.task('default', ['build']);

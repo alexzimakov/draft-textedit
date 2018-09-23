@@ -1,5 +1,5 @@
 import { EditorState, SelectionState, convertFromRaw } from 'draft-js';
-import EntityUtils from '../EntityUtils';
+import EntityUtils from './EntityUtils';
 
 const editorState = EditorState.createWithContent(
   convertFromRaw({

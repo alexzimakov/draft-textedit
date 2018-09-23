@@ -43,6 +43,7 @@ export const StyledEditor = styled.div`
   transition-duration: 150ms;
   transition-timing-function: ease;
   transition-property: box-shadow, border-color;
+  text-align: left;
   border: 1px solid ${props => (props.hasFocus ? inputFocusBorderColor : inputBorderColor)};
   border-radius: 3px;
   box-shadow: ${props => (props.hasFocus ? `0 0 0 3px ${focusedShadowColor}` : 'none')};

@@ -1,5 +1,5 @@
 import { EditorState, convertFromRaw } from 'draft-js';
-import BlockUtils from '../BlockUtils';
+import BlockUtils from './BlockUtils';
 
 const rawEditorState = {
   blocks: [

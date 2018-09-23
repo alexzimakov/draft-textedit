@@ -95,7 +95,7 @@ export const BaseButton = styled.button`
   }
 `;
 
-export const DefaultButton = BaseButton.extend`
+export const DefaultButton = styled(BaseButton)`
   color: ${props => props.styled.labelColor || buttonLabelColor};
   background: ${props => props.styled.containerColor || buttonContainerColor};
 
@@ -114,7 +114,7 @@ export const DefaultButton = BaseButton.extend`
   }
 `;
 
-export const TextButton = BaseButton.extend`
+export const TextButton = styled(BaseButton)`
   color: ${props => props.styled.containerColor || buttonContainerColor};
 
   &:enabled:hover {
@@ -125,7 +125,7 @@ export const TextButton = BaseButton.extend`
   }
 `;
 
-export const OutlinedButton = BaseButton.extend`
+export const OutlinedButton = styled(BaseButton)`
   color: ${props => props.styled.containerColor || buttonContainerColor};
   border: 1px solid ${props => props.styled.containerColor || buttonContainerColor};
 

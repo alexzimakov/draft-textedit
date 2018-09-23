@@ -1,18 +1,17 @@
 {
   "name": "draft-textedit",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A rich text editor built using React and Draft.js.",
   "main": "lib/DraftTextEdit.js",
   "browser": "dist/DraftTextEdit.js",
-  "style": "dist/DraftTextEdit.css",
   "files": [
     "lib/",
     "dist/",
     "src/"
   ],
   "scripts": {
-    "styleguide": "cross-env BABEL_ENV=styleguide styleguidist server",
-    "styleguide:build": "cross-env BABEL_ENV=styleguide styleguidist build",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
     "test:coverage": "cross-env BABEL_ENV=test jest --coverage",
     "test:watch": "cross-env BABEL_ENV=test jest --watch",
     "test": "cross-env BABEL_ENV=test jest",
@@ -20,9 +19,7 @@
     "build": "cross-env BABEL_ENV=production gulp --env production --component DraftTextEdit",
     "flow": "flow",
     "lint": "eslint src",
-    "lint:css": "stylelint 'src/**/*.css'",
     "format": "eslint src --fix && prettier --config .prettierrc --write \"src/**/*.{js,css,json}\"",
-    "format:css": "stylelint 'src/**/*.css' --fix",
     "prepare": "npm run build"
   },
   "repository": {
@@ -43,8 +40,7 @@
     "@fortawesome/free-solid-svg-icons": "5.2.0",
     "@fortawesome/react-fontawesome": "0.0.20",
     "color": "3.0.0",
-    "lodash": "4.17.10",
-    "styled-components": "3.4.2"
+    "lodash": "4.17.10"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -71,38 +67,32 @@
     "eslint-plugin-react": "^7.1.0",
     "flow-bin": "^0.78.0",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^7.0.1",
-    "gulp-clean-css": "^3.9.4",
-    "gulp-concat": "^2.6.1",
     "gulp-rename": "^1.2.3",
     "gulp-uglify": "^3.0.0",
     "husky": "^1.0.0-rc.6",
-    "immutable": "^3.7.6",
+    "immutable": "^3.8.2",
     "jest": "^22.4.4",
     "minimist": "^1.2.0",
     "prettier": "^1.12.1",
     "pretty-quick": "^1.4.1",
-    "prop-types": "^15.6.1",
     "pump": "^3.0.0",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "react-styleguidist": "^7.0.14",
     "regenerator-runtime": "^0.11.1",
     "request": "^2.87.0",
     "run-sequence": "^2.2.1",
-    "stylelint": "^9.2.1",
-    "stylelint-config-standard": "^18.2.0",
-    "stylelint-order": "^0.8.1",
+    "styled-components": "^3.4.9",
     "webpack": "^4.10.2",
     "webpack-stream": "^4.0.3"
   },
   "peerDependencies": {
-    "react": ">=16.3.0",
-    "react-dom": ">=16.3.0",
-    "prop-types": "^15.6.0",
-    "draft-js": "^0.10.0",
-    "immutable": "^3.7.6"
+    "react": ">=16.3.0 <=16.5.2",
+    "react-dom": ">=16.3.0 <=16.5.2",
+    "styled-components": "^3.4.0",
+    "draft-js": "^0.10.1",
+    "immutable": "^3.7.0"
   },
   "husky": {
     "hooks": {
